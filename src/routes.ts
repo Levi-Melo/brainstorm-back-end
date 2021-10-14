@@ -1,13 +1,8 @@
-import { Router, Request } from "express";
+import { Router } from "express";
+import { UsersRoutes } from "./routes/UsersRoutes";
 
 const router = Router();
 
-router.get("/a", (req, res) => {
-  res.send("aaaaaaaaaaaaa");
-});
-
-// router.use((req: Request, res: Response, next: NextFunction) => {
-//   next(new Error("Route not found"));
-// });
+router.use("/users", UsersRoutes);
 
 export { router };
