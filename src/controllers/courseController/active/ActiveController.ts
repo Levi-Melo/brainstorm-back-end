@@ -1,11 +1,10 @@
 import { Request, Response } from "express";
 import { param, validationResult } from "express-validator";
+
+import { ActiveService } from "../../../services/courseServices/active/ActiveService";
 import { Fail } from "../../../entities/Error";
 
-import { DeleteService } from "../../../services/userServices/delete/DeleteService";
-import { IDeleteUserController } from "./IDeleteUserController";
-
-class DeleteUserController implements IDeleteUserController {
+export class ActiveController {
   async handle(req: Request, res: Response) {
     param("id").isUUID();
 
@@ -18,11 +17,11 @@ class DeleteUserController implements IDeleteUserController {
     }
 
     const { id } = req.params;
-    const deleteUserService = new DeleteService();
 
-    const response = await deleteUserService.execute(id);
+    const activeCourse = new ActiveService();
 
-    if (!response) throw new Fail(404, `Couldn't find an User with id '${id}'`);
+    const response = await activeCourse.execute(id);
+    if (!response) throw new Fail(404, `Couldn't find an course with id ${id}`);
 
     return res.status(200).json({
       status: true,
@@ -30,5 +29,3 @@ class DeleteUserController implements IDeleteUserController {
     });
   }
 }
-
-export { DeleteUserController };

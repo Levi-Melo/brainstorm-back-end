@@ -2,10 +2,9 @@ import { Request, Response } from "express";
 import { param, validationResult } from "express-validator";
 import { Fail } from "../../../entities/Error";
 
-import { DeleteService } from "../../../services/userServices/delete/DeleteService";
-import { IDeleteUserController } from "./IDeleteUserController";
+import { DeleteService } from "../../../services/roleServices/delete/DeleteService";
 
-class DeleteUserController implements IDeleteUserController {
+export class DeleteController {
   async handle(req: Request, res: Response) {
     param("id").isUUID();
 
@@ -18,11 +17,11 @@ class DeleteUserController implements IDeleteUserController {
     }
 
     const { id } = req.params;
-    const deleteUserService = new DeleteService();
+    const deleteService = new DeleteService();
 
-    const response = await deleteUserService.execute(id);
+    const response = await deleteService.execute(id);
 
-    if (!response) throw new Fail(404, `Couldn't find an User with id '${id}'`);
+    if (!response) throw new Fail(404, `Couldn't find an Role with id '${id}'`);
 
     return res.status(200).json({
       status: true,
@@ -30,5 +29,3 @@ class DeleteUserController implements IDeleteUserController {
     });
   }
 }
-
-export { DeleteUserController };

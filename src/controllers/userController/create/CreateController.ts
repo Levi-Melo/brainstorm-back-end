@@ -9,29 +9,16 @@ import { hash } from "bcrypt";
 
 export class CreateController implements ICreateController {
   async handle(req: Request, res: Response) {
-    const {
-      id,
-      name,
-      cpf,
-      rg,
-      email,
-      password,
-      role,
-      confirmationCode,
-      confirmedAccount,
-    } = req.body;
+    const { name, cpf, rg, email, password, role } = req.body;
 
-    const user = new User(
-      {
-        name,
-        email,
-        cpf,
-        password: await hash(password, 10),
-        rg,
-        role,
-      },
-      id
-    );
+    const user = new User({
+      name,
+      email,
+      cpf,
+      password: await hash(password, 10),
+      rg,
+      role,
+    });
 
     const createService = new CreateService();
 
