@@ -16,7 +16,7 @@ class FilterUserService {
       cpf: data.cpf ? String(data.cpf) : null,
       email: data.email ? String(data.email) : null,
       rg: data.rg ? String(data.rg) : null,
-      active: data.active === "false" ? false : true,
+      active: data.active ? (data.active === "false" ? false : true) : null,
       type: data.type ? Number(data.type) : null,
     };
 

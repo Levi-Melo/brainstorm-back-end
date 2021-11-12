@@ -11,7 +11,7 @@ export class CreateController implements ICreateController {
   async handle(req: Request, res: Response) {
     const errors = validationResult(req);
 
-    const { description, link, name } = req.body;
+    const { description, link, name, course } = req.body;
 
     if (!errors.isEmpty()) {
       return res.status(400).json({
@@ -24,6 +24,7 @@ export class CreateController implements ICreateController {
       description,
       link,
       name,
+      course,
     });
 
     const createService = new CreateService();

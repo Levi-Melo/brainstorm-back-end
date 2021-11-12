@@ -11,7 +11,7 @@ export class UpdateController implements IUpdateController {
   async handle(req: Request, res: Response) {
     const errors = validationResult(req);
 
-    const { description, link, name, id } = req.body;
+    const { description, link, name, id, course } = req.body;
     if (!errors.isEmpty()) {
       return res.status(400).json({
         status: false,
@@ -24,6 +24,7 @@ export class UpdateController implements IUpdateController {
         description,
         link,
         name,
+        course,
       },
       id
     );

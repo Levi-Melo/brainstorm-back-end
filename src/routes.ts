@@ -1,8 +1,17 @@
 import { Router } from "express";
-import { UsersRoutes } from "./routes/UsersRoutes";
+import { routes } from "./routes/index";
 
 const router = Router();
 
-router.use("/users", UsersRoutes);
+router.use("/users", routes.UsersRoutes);
+router.use("/answers", routes.AnswerRoutes);
+router.use("/classes", routes.ClassRoutes);
+router.use("/complementaryAnswers", routes.ComplementaryAnswerRoutes);
+router.use("/courses", routes.CourseRoutes);
+router.use("/roles", routes.RoleRoutes);
+router.use("/teachers", routes.TeacherRoutes);
+router.use("/usersClasses", routes.UserClassRoutes);
+router.use("/categories", routes.categoryRoutes);
+router.use("/contacts", routes.contactRoutes);
 
 export { router };

@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { param, validationResult } from "express-validator";
 import { Fail } from "../../../entities/Error";
 
-import { DeleteService } from "../../../services/roleServices/delete/DeleteService";
+import { DeleteService } from "../../../services/categoryServices/delete/DeleteService";
 
 export class DeleteController {
   async handle(req: Request, res: Response) {
@@ -21,7 +21,8 @@ export class DeleteController {
 
     const response = await deleteService.execute(id);
 
-    if (!response) throw new Fail(404, `Couldn't find an Role with id '${id}'`);
+    if (!response)
+      throw new Fail(404, `Couldn't find an category with id '${id}'`);
 
     return res.status(200).json({
       status: true,

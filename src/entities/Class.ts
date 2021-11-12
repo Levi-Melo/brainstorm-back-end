@@ -2,11 +2,14 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
+  ManyToOne,
   PrimaryColumn,
   UpdateDateColumn,
 } from "typeorm";
 
 import { v4 as generateUuid } from "uuid";
+import { Course } from "./Course";
 
 @Entity("Classes")
 export class Class {
@@ -21,6 +24,10 @@ export class Class {
 
   @Column()
   public link: string;
+
+  @JoinColumn({ name: "course_id" })
+  @ManyToOne((type) => Course, (Course) => Course.id)
+  public course: Course;
 
   @CreateDateColumn({ name: "created_at" })
   public readonly createdAt?: Date;
