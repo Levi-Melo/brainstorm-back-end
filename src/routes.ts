@@ -13,5 +13,6 @@ router.use("/teachers", routes.TeacherRoutes);
 router.use("/usersClasses", routes.UserClassRoutes);
 router.use("/categories", routes.categoryRoutes);
 router.use("/contacts", routes.contactRoutes);
+router.use("/doc", routes.DocRoutes);
 
 export { router };

@@ -1,0 +1,1509 @@
+{
+  "openapi": "3.0.0",
+  "servers": [
+    {
+      "url": "//localhost:3333/api",
+      "description": "URL em ambiente de desenvolvimento"
+    }
+  ],
+  "info": {
+    "title": "Brainstorm",
+    "description": "Documentação da API do gerenciamento de informações do website Brainstorm.",
+    "version": "1.0.0",
+    "x-logo": {
+      "url": "",
+      "backgroundColor": "#F1F1F1",
+      "altText": "Brainstorm logo"
+    }
+  },
+  "tags": [
+    {
+      "name": "users",
+      "description": "Rota para gerenciamento de informações relacionadas aos registros de usuários (users)."
+    },
+    {
+      "name": "roles",
+      "description": "Rota para gerenciamento de informações relacionadas aos registro de cargos (Role)."
+    },
+    {
+      "name": "contact",
+      "description": "Rota para gerenciamento de informações relacionadas a entidade de contato (Contact)."
+    },
+    {
+      "name": "contact_model",
+      "x-displayName": "Contact (Contato)",
+      "description": "<SchemaDefinition schemaRef=\"#/components/schemas/Contact\" />\n"
+    },
+    {
+      "name": "user_model",
+      "x-displayName": "User (Usuário)",
+      "description": "<SchemaDefinition schemaRef=\"#/components/schemas/User\" />\n"
+    },
+    {
+      "name": "role_model",
+      "x-displayName": "Role (Cargo)",
+      "description": "<SchemaDefinition schemaRef=\"#/components/schemas/Role\" />"
+    }
+  ],
+  "x-tagGroups": [
+    {
+      "name": "Rotas - Usuários",
+      "tags": ["users", "roles", "contacts"]
+    },
+    {
+      "name": "Models - Usuários",
+      "tags": ["user_model", "role_model", "contact_model"]
+    }
+  ],
+  "paths": {
+    "/users": {
+      "post": {
+        "tags": ["users"],
+        "summary": "Adicionar novo usuário",
+        "description": "Endpoint para a adição de um novo registro de um usuário ao sistema.",
+        "operationId": "addUser",
+        "responses": {
+          "201": {
+            "description": "Adicionado com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Erro de requisição",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "requestBody": {
+          "$ref": "#/components/requestBodies/User"
+        }
+      },
+      "get": {
+        "tags": ["users"],
+        "summary": "Pesquisar usuários",
+        "description": "Endpoint para a pesquisa de registros de usuários de acordo com os parâmetros requisitados.",
+        "operationId": "filterUser",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "query",
+            "description": "Nome do usuário `PESQUISA PARCIAL`",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "cpf",
+            "in": "query",
+            "description": "CPF completo do usuário",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "email",
+            "in": "query",
+            "description": "E-mail completo do usuário",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "rg",
+            "in": "query",
+            "description": "RG completo do usuário",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "active",
+            "in": "query",
+            "description": "Situação do registro.\n * `true` - Ativado\n * `false` - Desativado",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserSearchResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Erro de requisição",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Nenhum usuário encontrado com os parâmetros inseridos",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ERRO: Nenhum registro com esses parâmetros encontrado"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": ["users"],
+        "summary": "Editar um usuário",
+        "description": "Endpoint para edição de dados de um registro de um usuário. É possível enviar apenas os campos que necessitam de edição. Obrigatório a inserção do ID do registro a ser editado.",
+        "operationId": "updateUser",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserUpdate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "ERROR",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QueryError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Nenhum usuário encontrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ERRO: Registro não encontrado"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/{id}": {
+      "get": {
+        "tags": ["users"],
+        "summary": "Consultar usuário por ID",
+        "description": "Endpoint para consulta de um único registro de um usuário, utilizando seu identificador único (ID).",
+        "operationId": "getIdUser",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Identificador único do usuário a ser consultado",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Erro de requisição",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Usuário não encontrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ERRO: Registro não encontrado"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["users"],
+        "summary": "Ativar um usuário",
+        "description": "Endpoint para a ativação de um registro de um usuário.",
+        "operationId": "activeUser",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Identificador único do usuário",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Nenhum usuário encontrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ERRO: Registro não encontrado"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["users"],
+        "summary": "Desativar um usuário",
+        "description": "Endpoint para a desativação de um registro de um usuário.",
+        "operationId": "deleteUser",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Identificador único do usuário",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Nenhum usuário encontrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ERRO: Registro não encontrado"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/confirm": {
+      "post": {
+        "tags": ["users"],
+        "summary": "Confirmar conta de usuário",
+        "description": "Endpoint para a confirmação de conta de um usuário.",
+        "operationId": "confirmUser",
+        "requestBody": {
+          "$ref": "#/components/requestBodies/UserConfirm"
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Erro de requisição",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/ERRO: Código de confirmação inválido"
+                    },
+                    { "$ref": "#/components/schemas/Error" }
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Nenhum usuário encontrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ERRO: Registro não encontrado"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/reset": {
+      "post": {
+        "tags": ["users"],
+        "summary": "Recuperar senha do usuário",
+        "description": "Endpoint para a recuperação de senha.",
+        "operationId": "resetPassUser",
+        "requestBody": {
+          "$ref": "#/components/requestBodies/UserResetPass"
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserResetResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Erro de requisição",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/ERRO: Código de confirmação inválido"
+                    },
+                    { "$ref": "#/components/schemas/Error" }
+                  ]
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Permissão negada",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/ERRO: O usuário não confirmou sua conta ainda"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ERRO: Não é possível trocar a senha de uma conta desativada"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Nenhum usuário encontrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ERRO: Registro não encontrado"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/roles": {
+      "post": {
+        "tags": ["roles"],
+        "summary": "Adicionar novo cargo",
+        "description": "Endpoint para a adição de um novo registro de cargo ao sistema.",
+        "operationId": "addRole",
+        "requestBody": {
+          "$ref": "#/components/requestBodies/Role"
+        },
+        "responses": {
+          "201": {
+            "description": "Adicionado com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RoleResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Erro de requisição",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "get": {
+        "tags": ["roles"],
+        "summary": "Listar cargos",
+        "description": "Endpoint para a listagem dos cargos registrados.",
+        "operationId": "listRole",
+        "responses": {
+          "200": {
+            "description": "Devolve uma lista com todos os cargos",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RoleSearchResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Nenhum cargo encontrado"
+          }
+        }
+      }
+    },
+    "/roles/{id}": {
+      "get": {
+        "tags": ["roles"],
+        "summary": "Consultar cargo por ID",
+        "description": "Endpoint para consulta de um único registro de cargo, utilizando seu identificador único (ID).",
+        "operationId": "getIdRole",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Identificador único do registro do cargo",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RoleResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Erro de requisição",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Cargo não encontrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ERRO: Registro não encontrado"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["roles"],
+        "summary": "Ativar um cargo",
+        "description": "Endpoint para a ativação de um registro de cargo.",
+        "operationId": "activeRole",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Identificador único do registro do cargo",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Erro de requisição",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Cargo não encontrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ERRO: Registro não encontrado"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["roles"],
+        "summary": "Desativar um cargo",
+        "description": "Endpoint para a desativação de um registro de cargo.",
+        "operationId": "deleteRole",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Identificador único do registro do cargo",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Erro de requisição",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Cargo não encontrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ERRO: Registro não encontrado"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/contacts": {
+      "post": {
+        "tags": ["contacts"],
+        "summary": "Adicionar novo contato",
+        "description": "Endpoint para a adição de um novo registro de contato ao sistema.",
+        "operationId": "addContact",
+        "requestBody": {
+          "$ref": "#/components/requestBodies/Contact"
+        },
+        "responses": {
+          "201": {
+            "description": "Adicionado com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ContactResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Erro de requisição",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "get": {
+        "tags": ["contacts"],
+        "summary": "Pesquisar contatos",
+        "description": "Endpoint para a pesquisa de registros de contatos de acordo com os parâmetros requisitados. Retorna uma lista dos contatos que batem com os critérios inseridos.",
+        "operationId": "filterContact",
+        "parameters": [
+          {
+            "name": "contactName",
+            "in": "query",
+            "description": "Complemento. Suporta pesquisa parcial.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "phoneNumber",
+            "in": "query",
+            "description": "Número do telefone completo",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "user",
+            "in": "query",
+            "description": "Identificador único do usuário dono do contato",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ContactSearchResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Nenhum contato encontrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ERRO: Nenhum registro com esses parâmetros encontrado"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": ["contacts"],
+        "summary": "Editar um contato",
+        "description": "Endpoint para edição de dados de um registro de um contato. É possível enviar apenas os campos que necessitam de edição. Obrigatório a inserção do ID do registro a ser editado.",
+        "operationId": "updateContact",
+        "requestBody": {
+          "$ref": "#/components/requestBodies/ContactUpdate"
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Erro de requisição",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Contato não encontrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ERRO: Registro não encontrado"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/contacts/{id}": {
+      "get": {
+        "tags": ["contacts"],
+        "summary": "Consultar contato por ID",
+        "description": "Endpoint para consulta de um único registro de um contato, utilizando seu identificador único (ID).",
+        "operationId": "getIdContact",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Identificador único do registro do contato",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ContactJoinResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Erro de requisição",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Contato não encontrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ERRO: Registro não encontrado"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["contacts"],
+        "summary": "Ativar um contato",
+        "description": "Endpoint para a ativação de um registro de contato.",
+        "operationId": "activeContact",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Identificador único do registro do contato",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Erro de requisição",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Contato não encontrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ERRO: Registro não encontrado"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["contacts"],
+        "summary": "Desativar um contato",
+        "description": "Endpoint para a desativação de um registro de contato.",
+        "operationId": "deleteContact",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Identificador único do registro do contato",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Erro de requisição",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Contato não encontrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ERRO: Registro não encontrado"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+
+  "components": {
+    "schemas": {
+      "Error": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "boolean",
+            "example": false
+          },
+          "errors": {
+            "type": "string",
+            "description": "Mensagem de erro"
+          }
+        }
+      },
+      "ERRO: ID inválido ou mal formatado": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "boolean",
+            "example": false,
+            "description": false
+          },
+          "errors": {
+            "type": "string",
+            "description": "Invalid or bad-formatted search ID",
+            "example": "Invalid or bad-formatted search ID"
+          }
+        }
+      },
+      "ERRO: Registro não encontrado": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "boolean",
+            "example": false,
+            "description": false
+          },
+          "errors": {
+            "type": "string",
+            "description": "Couldn't find a data with id {id}",
+            "example": "Couldn't find a data with id {id}"
+          }
+        }
+      },
+      "ERRO: Nenhum registro com esses parâmetros encontrado": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "boolean",
+            "example": false,
+            "description": false
+          },
+          "errors": {
+            "type": "string",
+            "description": "Couldn't find a data with these params",
+            "example": "Couldn't find a data with these params"
+          }
+        }
+      },
+      "QueryError": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "boolean",
+            "example": false
+          },
+          "errors": {
+            "type": "string",
+            "description": "Couldn't find a data with id {id}",
+            "example": "Couldn't find a data with id {id}"
+          }
+        }
+      },
+      "User": {
+        "type": "object",
+        "discriminator": {
+          "propertyName": "type",
+          "mapping": {
+            "1": "#/components/schemas/User",
+            "2": "#/components/schemas/UserProvider",
+            "3": "#/components/schemas/UserPoliceman",
+            "4": "#/components/schemas/UserClient"
+          }
+        },
+        "properties": {
+          "id": {
+            "description": "Identificador único do usuário",
+            "type": "string"
+          },
+          "confirmationCode": {
+            "description": "Código para confirmação de conta, gerado no registro do usuário",
+            "type": "string"
+          },
+          "confirmedAccount": {
+            "description": "Situação da conta do usuário (e-mail) do usuário; se foi confirmada ou não",
+            "type": "boolean",
+            "default": false
+          },
+          "name": {
+            "description": "Nome completo do usuário",
+            "type": "string"
+          },
+          "cpf": {
+            "description": "Número do CPF do usuário",
+            "type": "string"
+          },
+          "rg": {
+            "description": "Número do RG do usuário",
+            "type": "string"
+          },
+          "email": {
+            "description": "E-mail do usuário, utilizado para login e confirmação de conta",
+            "type": "string",
+            "format": "email"
+          },
+          "password": {
+            "description": "Hash da senha do usuário",
+            "type": "string"
+          },
+          "type": {
+            "description": "Tipo do usuário. Determinará seu fluxo de trabalho no sistema de acordo com suas funcionalidades relacionadas. Opções de tipo:\n * `1` - Usuário PRMA\n * `2` - Fornecedor\n * `3` - Policia\n * `4` - Cliente\n * `5` - Funcionário de Cliente\n * `6` - Funcionário de Fornecedor",
+            "type": "number",
+            "enum": [1, 2, 3, 4, 5, 6]
+          },
+          "role": {
+            "description": "Nível de acesso do usuário",
+            "type": "object",
+            "$ref": "#/components/schemas/Role"
+          },
+          "createdAt": {
+            "description": "Data e hora de criação",
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "description": "Data e hora da modificação",
+            "type": "string",
+            "format": "date-time"
+          },
+          "active": {
+            "description": "Situação do registro.\n * `true` - Ativado\n * `false` - Desativado",
+            "type": "boolean",
+            "default": true
+          }
+        }
+      },
+      "UserPost": {
+        "type": "object",
+        "required": ["email", "name", "password", "rg", "cpf", "role", "type"],
+        "properties": {
+          "name": {
+            "description": "Nome completo do usuário",
+            "type": "string"
+          },
+          "cpf": {
+            "description": "Número do CPF do usuário",
+            "type": "string"
+          },
+          "rg": {
+            "description": "Número do RG do usuário",
+            "type": "string"
+          },
+          "email": {
+            "description": "E-mail do usuário",
+            "type": "string",
+            "format": "email"
+          },
+          "password": {
+            "description": "Senha do usuário",
+            "type": "string"
+          },
+          "role": {
+            "description": "Identificador único do cargo do usuário",
+            "type": "string"
+          },
+          "type": {
+            "description": "Tipo do usuário. Determinará seu fluxo de trabalho no sistema de acordo com suas funcionalidades relacionadas. Também criará um registro em um dos outros Models relacionados as rotas de usuário. Opções de tipo:\n * `1` - Usuário PRMA\n * `2` - Fornecedor\n * `3` - Policia\n * `4` - Cliente\n * `5` - Funcionário de Cliente\n * `6` - Funcionário de Fornecedor",
+            "type": "number",
+            "enum": [1, 2, 3, 4, 5, 6]
+          }
+        }
+      },
+      "UserResetPost": {
+        "type": "object",
+        "required": ["email", "confirmationCode", "newPassword"],
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "E-mail do usuário"
+          },
+          "confirmationCode": {
+            "type": "string",
+            "description": "Código de confirmação de pedido de recuperação"
+          },
+          "newPassword": {
+            "type": "string",
+            "description": "Nova senha"
+          }
+        }
+      },
+      "UserUpdate": {
+        "type": "object",
+        "required": ["id"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Identificador único do registro que será editado"
+          },
+          "cpf": {
+            "type": "string"
+          },
+          "rg": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          },
+          "role": {
+            "type": "string",
+            "description": "Identificador único do cargo"
+          },
+          "type": {
+            "type": "number",
+            "enum": [1, 2, 3, 4, 5, 6]
+          }
+        }
+      },
+      "UserResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "boolean",
+            "description": "Situação da requisição"
+          },
+          "data": {
+            "$ref": "#/components/schemas/User"
+          }
+        }
+      },
+      "UserConfirmResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "boolean",
+            "description": "Situação da requisição"
+          },
+          "data": {
+            "$ref": "#/components/schemas/User"
+          }
+        }
+      },
+      "UserResetResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "boolean",
+            "description": "Situação da requisição"
+          },
+          "data": {
+            "type": "string",
+            "example": "Password reset with success"
+          }
+        }
+      },
+      "UserSearchResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "boolean"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/User"
+            }
+          }
+        }
+      },
+      "ERRO: O usuário não confirmou sua conta ainda": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "boolean",
+            "example": false,
+            "description": false
+          },
+          "errors": {
+            "type": "string",
+            "example": "The user does not have confirmed her account",
+            "description": "The user does not have confirmed her account"
+          }
+        }
+      },
+      "ERRO: Não é possível trocar a senha de uma conta desativada": {
+        "summary": "Não é possível",
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "boolean",
+            "example": false,
+            "description": false
+          },
+          "errors": {
+            "type": "string",
+            "example": "Cannot change password from an inactive account",
+            "description": "Cannot change password from an inactive account"
+          }
+        }
+      },
+      "ERRO: Código de confirmação inválido": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "boolean",
+            "example": false,
+            "description": false
+          },
+          "errors": {
+            "type": "string",
+            "example": "Wrong confirmation code",
+            "description": "Wrong confirmation code"
+          }
+        }
+      },
+      "Contact": {
+        "type": "object",
+        "required": ["phoneNumber", "user"],
+        "properties": {
+          "active": {
+            "description": "Situação do contato",
+            "type": "boolean",
+            "default": true
+          },
+          "id": {
+            "description": "Identificador único do contato",
+            "type": "string"
+          },
+          "contactName": {
+            "description": "Nome do contato",
+            "type": "string"
+          },
+          "phoneNumber": {
+            "description": "Número do telefone relacionado",
+            "type": "string"
+          },
+          "user": {
+            "description": "Identificador único do usuário dono desse contato",
+            "type": "string"
+          },
+          "createdAt": {
+            "description": "Data e hora de criação",
+            "type": "string"
+          },
+          "updatedAt": {
+            "description": "Data e hora da modificação",
+            "type": "string"
+          }
+        }
+      },
+      "ContactJoin": {
+        "type": "object",
+        "required": ["phoneNumber", "user"],
+        "properties": {
+          "active": {
+            "description": "Situação do contato",
+            "type": "boolean",
+            "default": true
+          },
+          "id": {
+            "description": "Identificador único do contato",
+            "type": "string"
+          },
+          "contactName": {
+            "description": "Nome do contato",
+            "type": "string"
+          },
+          "phoneNumber": {
+            "description": "Número do telefone relacionado",
+            "type": "string"
+          },
+          "user": {
+            "type": "object",
+            "$ref": "#/components/schemas/User"
+          },
+          "createdAt": {
+            "description": "Data e hora de criação",
+            "type": "string"
+          },
+          "updatedAt": {
+            "description": "Data e hora da modificação",
+            "type": "string"
+          }
+        }
+      },
+      "ContactPost": {
+        "type": "object",
+        "required": ["contactName", "phoneNumber", "user"],
+        "properties": {
+          "contactName": {
+            "description": "Nome do contato",
+            "type": "string"
+          },
+          "phoneNumber": {
+            "description": "Número do telefone relacionado",
+            "type": "string"
+          },
+          "user": {
+            "description": "Identificador único do usuário dono desse contato",
+            "type": "string"
+          }
+        }
+      },
+      "ContactUpdate": {
+        "type": "object",
+        "required": ["id"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Identificador único do registro que será editado"
+          },
+          "contactName": {
+            "type": "string"
+          },
+          "phoneNumber": {
+            "type": "string"
+          },
+          "user": {
+            "type": "string"
+          }
+        }
+      },
+      "ContactResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "boolean",
+            "description": "Situação da requisição"
+          },
+          "data": {
+            "$ref": "#/components/schemas/Contact"
+          }
+        }
+      },
+      "ContactJoinResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "boolean",
+            "description": "Situação da requisição"
+          },
+          "data": {
+            "$ref": "#/components/schemas/ContactJoin"
+          }
+        }
+      },
+      "ContactSearchResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "boolean"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Contact"
+            }
+          }
+        }
+      },
+      "Role": {
+        "type": "object",
+        "properties": {
+          "active": {
+            "type": "boolean",
+            "description": "Situação do registro.\n * `true` - Ativado\n * `false` - Desativado"
+          },
+          "id": {
+            "type": "string",
+            "description": "Identificador único do cargo"
+          },
+          "name": {
+            "type": "string",
+            "description": "Nome do cargo"
+          },
+          "initials": {
+            "type": "string",
+            "description": "Sigla do cargo"
+          },
+          "createdAt": {
+            "description": "Data e hora de criação",
+            "type": "string",
+            "format": "yyyy-mm-dd hh:mm:ss"
+          },
+          "updatedAt": {
+            "description": "Data e hora da modificação",
+            "type": "string",
+            "format": "yyyy-mm-dd hh:mm:ss"
+          }
+        }
+      },
+      "RolePost": {
+        "type": "object",
+        "required": ["name", "initials"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Nome do cargo"
+          },
+          "initials": {
+            "type": "string",
+            "description": "Sigla do cargo"
+          }
+        }
+      },
+      "RoleResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "boolean"
+          },
+          "data": {
+            "type": "object",
+            "$ref": "#/components/schemas/Role"
+          }
+        }
+      },
+      "RoleSearchResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "boolean"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Role"
+            }
+          }
+        }
+      }
+    },
+    "requestBodies": {
+      "User": {
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/UserPost"
+            }
+          }
+        }
+      },
+      "UserConfirm": {
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": ["id", "confirmationCode"],
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "description": "Identificador único do usuário"
+                },
+                "confirmationCode": {
+                  "type": "string",
+                  "description": "Código de confirmação da conta"
+                }
+              }
+            }
+          }
+        }
+      },
+      "UserResetPass": {
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/UserResetPost"
+            }
+          }
+        }
+      },
+      "Contact": {
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ContactPost"
+            }
+          }
+        },
+        "description": "Objeto de contato válido para o cadastro:",
+        "required": true
+      },
+      "ContactUpdate": {
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ContactPost"
+            }
+          }
+        }
+      },
+      "Role": {
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/RolePost"
+            }
+          }
+        },
+        "description": "Objeto de cargo válido para o cadastro:",
+        "required": true
+      }
+    }
+  }
+}

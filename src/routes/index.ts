@@ -8,6 +8,7 @@ import { RoleRoutes } from "./RoleRoutes";
 import { TeacherRoutes } from "./TeacherRoutes";
 import { UserClassRoutes } from "./UserClassRoutes";
 import { categoryRoutes } from "./categoryRoutes";
+import { DocRoutes } from "./DocRoutes";
 
 export const routes = {
   UsersRoutes,
@@ -20,4 +21,5 @@ export const routes = {
   TeacherRoutes,
   UserClassRoutes,
   categoryRoutes,
+  DocRoutes,
 };
