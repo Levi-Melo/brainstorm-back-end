@@ -35,7 +35,7 @@ export class usersClasses1636763351624 implements MigrationInterface {
             name: "FK_USERCLASSES_USER",
             referencedTableName: "classes",
             referencedColumnNames: ["id"],
-            columnNames: ["user_id"],
+            columnNames: ["user"],
           },
           {
             name: "FK_USERclasses_classes",

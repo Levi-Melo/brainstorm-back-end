@@ -43,7 +43,7 @@ export class teachers1636762088586 implements MigrationInterface {
             name: "FK_teacher_USER",
             referencedTableName: "users",
             referencedColumnNames: ["id"],
-            columnNames: ["user_id"],
+            columnNames: ["user"],
           },
         ],
       })
@@ -51,6 +51,6 @@ export class teachers1636762088586 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable("contacts");
+    await queryRunner.dropTable("teachers");
   }
 }

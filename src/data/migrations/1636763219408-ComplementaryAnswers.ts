@@ -4,7 +4,7 @@ export class ComplementaryAnswers1636763219408 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
-        name: "answers",
+        name: "complementary_answers",
         columns: [
           {
             name: "id",
@@ -57,6 +57,6 @@ export class ComplementaryAnswers1636763219408 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable("answers");
+    await queryRunner.dropTable("complementary_answers");
   }
 }

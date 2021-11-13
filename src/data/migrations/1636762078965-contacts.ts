@@ -43,7 +43,7 @@ export class contacts1636762078965 implements MigrationInterface {
             name: "FK_CONTACT_USER",
             referencedTableName: "users",
             referencedColumnNames: ["id"],
-            columnNames: ["user_id"],
+            columnNames: ["user"],
           },
         ],
       })

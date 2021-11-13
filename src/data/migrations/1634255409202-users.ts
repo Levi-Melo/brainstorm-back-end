@@ -66,7 +66,7 @@ export class users1634255409202 implements MigrationInterface {
             name: "FK_USER_ROLE",
             referencedTableName: "roles",
             referencedColumnNames: ["id"],
-            columnNames: ["role_id"],
+            columnNames: ["role"],
           },
         ],
         uniques: [
