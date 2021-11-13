@@ -16,7 +16,8 @@ export class UpdateController {
       });
     }
 
-    const { id, name, category, certificated, description, user } = req.body;
+    const { id, name, category, certificated, description, user, image } =
+      req.body;
 
     const course = new Course(
       {
@@ -25,6 +26,7 @@ export class UpdateController {
         certificated,
         description,
         user,
+        image,
       },
       id
     );

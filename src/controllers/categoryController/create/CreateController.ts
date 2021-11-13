@@ -7,11 +7,12 @@ import { classToPlain } from "class-transformer";
 
 export class CreateController {
   async handle(req: Request, res: Response) {
-    const { name, initials } = req.body;
+    const { name, initials, image } = req.body;
 
     const category = new Category({
       name,
       initials,
+      image,
     });
 
     const createService = new CreateService();

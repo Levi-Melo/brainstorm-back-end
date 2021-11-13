@@ -21,6 +21,9 @@ export class Category {
   @Column()
   public initials: string;
 
+  @Column()
+  public image: string;
+
   @CreateDateColumn({ name: "created_at" })
   public readonly createdAt?: Date;
 

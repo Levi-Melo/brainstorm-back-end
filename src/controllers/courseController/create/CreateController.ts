@@ -7,7 +7,7 @@ import { classToPlain } from "class-transformer";
 
 export class CreateController {
   async handle(req: Request, res: Response) {
-    const { name, category, certificated, description, user } = req.body;
+    const { name, category, certificated, description, user, image } = req.body;
 
     const course = new Course({
       name,
@@ -15,6 +15,7 @@ export class CreateController {
       certificated,
       description,
       user,
+      image,
     });
 
     const createService = new CreateService();

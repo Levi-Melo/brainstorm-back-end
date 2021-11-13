@@ -33,6 +33,9 @@ export class Course {
   public certificated: boolean;
 
   @Column()
+  public image: string;
+
+  @Column()
   public active: boolean;
 
   @JoinColumn({ name: "category_id" })
