@@ -69,3 +69,5 @@ npm run dev
 # or
 yarn dev
 ```
+
+Após o servidor logar `Server listen 3333` você pode entrar em `localhost:3333/api/doc` para ler a documentação das rotas. 
