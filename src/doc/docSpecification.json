@@ -22,6 +22,10 @@
       "description": "Rota para gerenciamento de informações relacionadas aos registros de usuários (users)."
     },
     {
+      "name": "courses",
+      "description": "Rota para gerenciamento de informações relacionadas aos registros de cursos (courses)."
+    },
+    {
       "name": "classes",
       "description": "Rota para gerenciamento de informações relacionadas aos registros de aulas (classes)."
     },
@@ -213,46 +217,6 @@
             }
           }
         }
-      },
-      "patch": {
-        "tags": ["users"],
-        "summary": "Editar um usuário",
-        "description": "Endpoint para edição de dados de um registro de um usuário. É possível enviar apenas os campos que necessitam de edição. Obrigatório a inserção do ID do registro a ser editado.",
-        "operationId": "updateUser",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UserUpdate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "ERROR",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/QueryError"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Nenhum usuário encontrado",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ERRO: Registro não encontrado"
-                }
-              }
-            }
-          }
-        }
       }
     },
     "/users/{id}": {
@@ -356,6 +320,46 @@
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "404": {
+            "description": "Nenhum usuário encontrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ERRO: Registro não encontrado"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": ["users"],
+        "summary": "Editar um usuário",
+        "description": "Endpoint para edição de dados de um registro de um usuário. É possível enviar apenas os campos que necessitam de edição. Obrigatório a inserção do ID do registro a ser editado.",
+        "operationId": "updateUser",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserUpdate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "ERROR",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QueryError"
+                }
+              }
+            }
           },
           "404": {
             "description": "Nenhum usuário encontrado",
@@ -666,6 +670,46 @@
             }
           }
         }
+      },
+      "patch": {
+        "tags": ["categories"],
+        "summary": "Editar um usuário",
+        "description": "Endpoint para edição de dados de um registro de um categoria. É possível enviar apenas os campos que necessitam de edição. Obrigatório a inserção do ID do registro a ser editado.",
+        "operationId": "updateUser",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CategoryUpdate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "ERROR",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QueryError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Nenhum usuário encontrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ERRO: Registro não encontrado"
+                }
+              }
+            }
+          }
+        }
       }
     },
     "/contacts": {
@@ -751,40 +795,6 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ERRO: Nenhum registro com esses parâmetros encontrado"
-                }
-              }
-            }
-          }
-        }
-      },
-      "patch": {
-        "tags": ["contacts"],
-        "summary": "Editar um contato",
-        "description": "Endpoint para edição de dados de um registro de um contato. É possível enviar apenas os campos que necessitam de edição. Obrigatório a inserção do ID do registro a ser editado.",
-        "operationId": "updateContact",
-        "requestBody": {
-          "$ref": "#/components/requestBodies/ContactUpdate"
-        },
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Erro de requisição",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Contato não encontrado",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ERRO: Registro não encontrado"
                 }
               }
             }
@@ -925,6 +935,40 @@
             }
           }
         }
+      },
+      "patch": {
+        "tags": ["contacts"],
+        "summary": "Editar um contato",
+        "description": "Endpoint para edição de dados de um registro de um contato. É possível enviar apenas os campos que necessitam de edição. Obrigatório a inserção do ID do registro a ser editado.",
+        "operationId": "updateContact",
+        "requestBody": {
+          "$ref": "#/components/requestBodies/ContactUpdate"
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Erro de requisição",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Contato não encontrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ERRO: Registro não encontrado"
+                }
+              }
+            }
+          }
+        }
       }
     },
     "/answers": {
@@ -982,46 +1026,6 @@
             "description": "Nenhum Categoria encontrado"
           }
         }
-      },
-      "patch": {
-        "tags": ["answers"],
-        "summary": "Editar uma resposta",
-        "description": "Endpoint para edição de dados de um registro de uma resposta. É possível enviar apenas os campos que necessitam de edição. Obrigatório a inserção do ID do registro a ser editado.",
-        "operationId": "updateUser",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/AnswerUpdate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "ERROR",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/QueryError"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Nenhum usuário encontrado",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ERRO: Registro não encontrado"
-                }
-              }
-            }
-          }
-        }
       }
     },
     "/answers/{id}": {
@@ -1064,6 +1068,46 @@
           },
           "404": {
             "description": "Categoria não encontrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ERRO: Registro não encontrado"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": ["answers"],
+        "summary": "Editar uma resposta",
+        "description": "Endpoint para edição de dados de um registro de uma resposta. É possível enviar apenas os campos que necessitam de edição. Obrigatório a inserção do ID do registro a ser editado.",
+        "operationId": "updateUser",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AnswerUpdate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "ERROR",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QueryError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Nenhum usuário encontrado",
             "content": {
               "application/json": {
                 "schema": {
@@ -1214,46 +1258,6 @@
             "description": "Nenhum Categoria encontrado"
           }
         }
-      },
-      "patch": {
-        "tags": ["complementary Answers"],
-        "summary": "Editar uma resposta complementar",
-        "description": "Endpoint para edição de dados de um registro de uma resposta. É possível enviar apenas os campos que necessitam de edição. Obrigatório a inserção do ID do registro a ser editado.",
-        "operationId": "updateComplementaryAnswer",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ComplementaryAnswerUpdate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "ERROR",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/QueryError"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Nenhum usuário encontrado",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ERRO: Registro não encontrado"
-                }
-              }
-            }
-          }
-        }
       }
     },
     "/complementaryAnswers/{id}": {
@@ -1348,6 +1352,46 @@
           }
         }
       },
+      "patch": {
+        "tags": ["complementary Answers"],
+        "summary": "Editar uma resposta complementar",
+        "description": "Endpoint para edição de dados de um registro de uma resposta. É possível enviar apenas os campos que necessitam de edição. Obrigatório a inserção do ID do registro a ser editado.",
+        "operationId": "updateComplementaryAnswer",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ComplementaryAnswerUpdate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "ERROR",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QueryError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Nenhum usuário encontrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ERRO: Registro não encontrado"
+                }
+              }
+            }
+          }
+        }
+      },
       "delete": {
         "tags": ["complementary Answers"],
         "summary": "Desativar um resposta complementar",
@@ -1394,8 +1438,8 @@
     "/classes": {
       "post": {
         "tags": ["classes"],
-        "summary": "Adicionar nova resposta complementar",
-        "description": "Endpoint para a adição de um novo registro de categoria ao sistema.",
+        "summary": "Adicionar nova aula",
+        "description": "Endpoint para a adição de um novo registro de aula ao sistema.",
         "operationId": "addClass",
         "requestBody": {
           "$ref": "#/components/requestBodies/Class"
@@ -1428,8 +1472,8 @@
       },
       "get": {
         "tags": ["classes"],
-        "summary": "Listar respostas complementares",
-        "description": "Endpoint para a listagem dos Categorias registrados.",
+        "summary": "Listar ",
+        "description": "Endpoint para a listagem de aulas registrados.",
         "operationId": "listClass",
         "responses": {
           "200": {
@@ -1446,59 +1490,19 @@
             "description": "Nenhum Categoria encontrado"
           }
         }
-      },
-      "patch": {
-        "tags": ["classes"],
-        "summary": "Editar uma resposta complementar",
-        "description": "Endpoint para edição de dados de um registro de uma resposta. É possível enviar apenas os campos que necessitam de edição. Obrigatório a inserção do ID do registro a ser editado.",
-        "operationId": "updateClass",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ClassUpdate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "ERROR",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/QueryError"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Nenhum usuário encontrado",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ERRO: Registro não encontrado"
-                }
-              }
-            }
-          }
-        }
       }
     },
     "/classes/{id}": {
       "get": {
         "tags": ["classes"],
         "summary": "Consultar resposta complementar por ID",
-        "description": "Endpoint para consulta de um único registro de resposta complementar, utilizando seu identificador único (ID).",
+        "description": "Endpoint para consulta de um único registro de aula, utilizando seu identificador único (ID).",
         "operationId": "getIdClass",
         "parameters": [
           {
             "name": "id",
             "in": "path",
-            "description": "Identificador único do registro de resposta",
+            "description": "Identificador único do registro de aula",
             "required": true,
             "schema": {
               "type": "string"
@@ -1540,8 +1544,240 @@
       },
       "post": {
         "tags": ["classes"],
-        "summary": "Ativar um resposta complementar",
-        "description": "Endpoint para a ativação de um registro de resposta.",
+        "summary": "Ativar um aula",
+        "description": "Endpoint para a ativação de um registro de aula.",
+        "operationId": "activeClass",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Identificador único do registro de aula",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Erro de requisição",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Categoria não encontrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ERRO: Registro não encontrado"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["classes"],
+        "summary": "Desativar uma aula",
+        "description": "Endpoint para a desativação de um registro de aula.",
+        "operationId": "deleteClass",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Identificador único do registro de aula",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Erro de requisição",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Categoria não encontrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ERRO: Registro não encontrado"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": ["classes"],
+        "summary": "Editar um registro de aula",
+        "description": "Endpoint para edição de dados de um registro de uma aula. É possível enviar apenas os campos que necessitam de edição. Obrigatório a inserção do ID do registro a ser editado.",
+        "operationId": "updateClass",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClassUpdate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "ERROR",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QueryError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Nenhum usuário encontrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ERRO: Registro não encontrado"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/courses": {
+      "post": {
+        "tags": ["courses"],
+        "summary": "Adicionar novo curso",
+        "description": "Endpoint para a adição de um novo registro de curso ao sistema.",
+        "operationId": "addClass",
+        "requestBody": {
+          "$ref": "#/components/requestBodies/Course"
+        },
+        "responses": {
+          "201": {
+            "description": "Adicionado com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CourseResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Erro de requisição",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "get": {
+        "tags": ["courses"],
+        "summary": "Listar cursos",
+        "description": "Endpoint para a listagem dos cursos registrados.",
+        "operationId": "listCourse",
+        "responses": {
+          "200": {
+            "description": "Devolve uma lista com todos os Categorias",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CoursesearchResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Nenhum Categoria encontrado"
+          }
+        }
+      }
+    },
+    "/courses/{id}": {
+      "get": {
+        "tags": ["courses"],
+        "summary": "Consultar curso por ID",
+        "description": "Endpoint para consulta de um único registro de curso, utilizando seu identificador único (ID).",
+        "operationId": "getIdClass",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Identificador único do registro de resposta",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CourseResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Erro de requisição",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Categoria não encontrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ERRO: Registro não encontrado"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["courses"],
+        "summary": "Ativar um curso",
+        "description": "Endpoint para a ativação de um curso.",
         "operationId": "activeClass",
         "parameters": [
           {
@@ -1580,9 +1816,49 @@
           }
         }
       },
+      "patch": {
+        "tags": ["courses"],
+        "summary": "Editar uma cursos",
+        "description": "Endpoint para edição de dados de um registro de um curso. É possível enviar apenas os campos que necessitam de edição. Obrigatório a inserção do ID do registro a ser editado.",
+        "operationId": "updateClass",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CourseUpdate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "ERROR",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QueryError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Nenhum usuário encontrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ERRO: Registro não encontrado"
+                }
+              }
+            }
+          }
+        }
+      },
       "delete": {
-        "tags": ["classes"],
-        "summary": "Desativar um resposta complementar",
+        "tags": ["courses"],
+        "summary": "Desativar um curso",
         "description": "Endpoint para a desativação de um registro de resposta complementar.",
         "operationId": "deleteClass",
         "parameters": [
@@ -2100,10 +2376,6 @@
             "type": "boolean",
             "description": "Situação do registro.\n * `true` - Ativado\n * `false` - Desativado"
           },
-          "id": {
-            "type": "string",
-            "description": "Identificador único do Categoria"
-          },
           "name": {
             "type": "string",
             "description": "Nome do Categoria"
@@ -2169,6 +2441,38 @@
             "items": {
               "$ref": "#/components/schemas/Category"
             }
+          }
+        }
+      },
+      "CategoryUpdate": {
+        "type": "object",
+        "required": ["id"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Identificador único do Categoria"
+          },
+          "name": {
+            "type": "string",
+            "description": "Nome do Categoria"
+          },
+          "initials": {
+            "type": "string",
+            "description": "Sigla do Categoria"
+          },
+          "image": {
+            "type": "string",
+            "description": "link da imagem da categoria"
+          },
+          "createdAt": {
+            "description": "Data e hora de criação",
+            "type": "string",
+            "format": "yyyy-mm-dd hh:mm:ss"
+          },
+          "updatedAt": {
+            "description": "Data e hora da modificação",
+            "type": "string",
+            "format": "yyyy-mm-dd hh:mm:ss"
           }
         }
       },
@@ -2351,11 +2655,11 @@
           },
           "name": {
             "type": "string",
-            "description": "Nome do curso"
+            "description": "Nome da aula"
           },
           "course": {
             "type": "string",
-            "description": "identificador unico de curso"
+            "description": "identificador unico de aula"
           }
         }
       },
@@ -2432,6 +2736,132 @@
             "description": "identificador unico de curso"
           }
         }
+      },
+      "Course": {
+        "type": "object",
+        "properties": {
+          "category": {
+            "type": "string",
+            "description": "identificador unico da categoria do curso"
+          },
+          "certificated": {
+            "type": "boolean",
+            "description": "flag para saber se emite certificado ou não"
+          },
+          "name": {
+            "type": "string",
+            "description": "Nome do curso"
+          },
+          "image": {
+            "type": "string",
+            "description": "link da imagem do curso"
+          },
+          "description": {
+            "type": "string",
+            "description": "descrição de curso"
+          },
+          "user": {
+            "type": "string",
+            "description": "identificador unico de usuário"
+          }
+        }
+      },
+      "CoursePost": {
+        "type": "object",
+        "required": [
+          "name",
+          "category",
+          "certificated",
+          "description",
+          "user",
+          "image"
+        ],
+        "properties": {
+          "category": {
+            "type": "string",
+            "description": "identificador unico da categoria do curso"
+          },
+          "certificated": {
+            "type": "boolean",
+            "description": "flag para saber se emite certificado ou não"
+          },
+          "name": {
+            "type": "string",
+            "description": "Nome do curso"
+          },
+          "image": {
+            "type": "string",
+            "description": "link da imagem do curso"
+          },
+          "description": {
+            "type": "string",
+            "description": "descrição de curso"
+          },
+          "user": {
+            "type": "string",
+            "description": "identificador unico de usuário"
+          }
+        }
+      },
+      "CourseResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "boolean"
+          },
+          "data": {
+            "type": "object",
+            "$ref": "#/components/schemas/Course"
+          }
+        }
+      },
+      "CoursesearchResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "boolean"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Course"
+            }
+          }
+        }
+      },
+      "CourseUpdate": {
+        "type": "object",
+        "required": ["id"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Identificador único do registro que será editado"
+          },
+          "category": {
+            "type": "string",
+            "description": "identificador unico da categoria do curso"
+          },
+          "certificated": {
+            "type": "boolean",
+            "description": "flag para saber se emite certificado ou não"
+          },
+          "name": {
+            "type": "string",
+            "description": "Nome do curso"
+          },
+          "image": {
+            "type": "string",
+            "description": "link da imagem do curso"
+          },
+          "description": {
+            "type": "string",
+            "description": "descrição de curso"
+          },
+          "user": {
+            "type": "string",
+            "description": "identificador unico de usuário"
+          }
+        }
       }
     },
     "requestBodies": {
@@ -2449,6 +2879,15 @@
           "application/json": {
             "schema": {
               "$ref": "#/components/schemas/Class"
+            }
+          }
+        }
+      },
+      "Course": {
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Course"
             }
           }
         }
