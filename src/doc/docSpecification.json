@@ -217,6 +217,46 @@
             }
           }
         }
+      },
+      "patch": {
+        "tags": ["users"],
+        "summary": "Editar um usuário",
+        "description": "Endpoint para edição de dados de um registro de um usuário. É possível enviar apenas os campos que necessitam de edição. Obrigatório a inserção do ID do registro a ser editado.",
+        "operationId": "updateUser",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserUpdate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "ERROR",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QueryError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Nenhum usuário encontrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ERRO: Registro não encontrado"
+                }
+              }
+            }
+          }
+        }
       }
     },
     "/users/{id}": {
@@ -320,46 +360,6 @@
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "404": {
-            "description": "Nenhum usuário encontrado",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ERRO: Registro não encontrado"
-                }
-              }
-            }
-          }
-        }
-      },
-      "patch": {
-        "tags": ["users"],
-        "summary": "Editar um usuário",
-        "description": "Endpoint para edição de dados de um registro de um usuário. É possível enviar apenas os campos que necessitam de edição. Obrigatório a inserção do ID do registro a ser editado.",
-        "operationId": "updateUser",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UserUpdate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "ERROR",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/QueryError"
-                }
-              }
-            }
           },
           "404": {
             "description": "Nenhum usuário encontrado",
@@ -535,6 +535,46 @@
             "description": "Nenhum Categoria encontrado"
           }
         }
+      },
+      "patch": {
+        "tags": ["categories"],
+        "summary": "Editar um usuário",
+        "description": "Endpoint para edição de dados de um registro de um categoria. É possível enviar apenas os campos que necessitam de edição. Obrigatório a inserção do ID do registro a ser editado.",
+        "operationId": "updateUser",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CategoryUpdate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "ERROR",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QueryError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Nenhum usuário encontrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ERRO: Registro não encontrado"
+                }
+              }
+            }
+          }
+        }
       }
     },
     "/categories/{id}": {
@@ -670,46 +710,6 @@
             }
           }
         }
-      },
-      "patch": {
-        "tags": ["categories"],
-        "summary": "Editar um usuário",
-        "description": "Endpoint para edição de dados de um registro de um categoria. É possível enviar apenas os campos que necessitam de edição. Obrigatório a inserção do ID do registro a ser editado.",
-        "operationId": "updateUser",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CategoryUpdate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "ERROR",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/QueryError"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Nenhum usuário encontrado",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ERRO: Registro não encontrado"
-                }
-              }
-            }
-          }
-        }
       }
     },
     "/contacts": {
@@ -795,6 +795,40 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ERRO: Nenhum registro com esses parâmetros encontrado"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": ["contacts"],
+        "summary": "Editar um contato",
+        "description": "Endpoint para edição de dados de um registro de um contato. É possível enviar apenas os campos que necessitam de edição. Obrigatório a inserção do ID do registro a ser editado.",
+        "operationId": "updateContact",
+        "requestBody": {
+          "$ref": "#/components/requestBodies/ContactUpdate"
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Erro de requisição",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Contato não encontrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ERRO: Registro não encontrado"
                 }
               }
             }
@@ -935,40 +969,6 @@
             }
           }
         }
-      },
-      "patch": {
-        "tags": ["contacts"],
-        "summary": "Editar um contato",
-        "description": "Endpoint para edição de dados de um registro de um contato. É possível enviar apenas os campos que necessitam de edição. Obrigatório a inserção do ID do registro a ser editado.",
-        "operationId": "updateContact",
-        "requestBody": {
-          "$ref": "#/components/requestBodies/ContactUpdate"
-        },
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Erro de requisição",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Contato não encontrado",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ERRO: Registro não encontrado"
-                }
-              }
-            }
-          }
-        }
       }
     },
     "/answers": {
@@ -1026,6 +1026,46 @@
             "description": "Nenhum Categoria encontrado"
           }
         }
+      },
+      "patch": {
+        "tags": ["answers"],
+        "summary": "Editar uma resposta",
+        "description": "Endpoint para edição de dados de um registro de uma resposta. É possível enviar apenas os campos que necessitam de edição. Obrigatório a inserção do ID do registro a ser editado.",
+        "operationId": "updateUser",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AnswerUpdate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "ERROR",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QueryError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Nenhum usuário encontrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ERRO: Registro não encontrado"
+                }
+              }
+            }
+          }
+        }
       }
     },
     "/answers/{id}": {
@@ -1068,46 +1108,6 @@
           },
           "404": {
             "description": "Categoria não encontrado",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ERRO: Registro não encontrado"
-                }
-              }
-            }
-          }
-        }
-      },
-      "patch": {
-        "tags": ["answers"],
-        "summary": "Editar uma resposta",
-        "description": "Endpoint para edição de dados de um registro de uma resposta. É possível enviar apenas os campos que necessitam de edição. Obrigatório a inserção do ID do registro a ser editado.",
-        "operationId": "updateUser",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/AnswerUpdate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "ERROR",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/QueryError"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Nenhum usuário encontrado",
             "content": {
               "application/json": {
                 "schema": {
@@ -1258,6 +1258,46 @@
             "description": "Nenhum Categoria encontrado"
           }
         }
+      },
+      "patch": {
+        "tags": ["complementary Answers"],
+        "summary": "Editar uma resposta complementar",
+        "description": "Endpoint para edição de dados de um registro de uma resposta. É possível enviar apenas os campos que necessitam de edição. Obrigatório a inserção do ID do registro a ser editado.",
+        "operationId": "updateComplementaryAnswer",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ComplementaryAnswerUpdate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "ERROR",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QueryError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Nenhum usuário encontrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ERRO: Registro não encontrado"
+                }
+              }
+            }
+          }
+        }
       }
     },
     "/complementaryAnswers/{id}": {
@@ -1342,46 +1382,6 @@
           },
           "404": {
             "description": "Categoria não encontrado",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ERRO: Registro não encontrado"
-                }
-              }
-            }
-          }
-        }
-      },
-      "patch": {
-        "tags": ["complementary Answers"],
-        "summary": "Editar uma resposta complementar",
-        "description": "Endpoint para edição de dados de um registro de uma resposta. É possível enviar apenas os campos que necessitam de edição. Obrigatório a inserção do ID do registro a ser editado.",
-        "operationId": "updateComplementaryAnswer",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ComplementaryAnswerUpdate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "ERROR",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/QueryError"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Nenhum usuário encontrado",
             "content": {
               "application/json": {
                 "schema": {
@@ -1488,6 +1488,46 @@
           },
           "404": {
             "description": "Nenhum Categoria encontrado"
+          }
+        }
+      },
+      "patch": {
+        "tags": ["classes"],
+        "summary": "Editar um registro de aula",
+        "description": "Endpoint para edição de dados de um registro de uma aula. É possível enviar apenas os campos que necessitam de edição. Obrigatório a inserção do ID do registro a ser editado.",
+        "operationId": "updateClass",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClassUpdate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "ERROR",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QueryError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Nenhum usuário encontrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ERRO: Registro não encontrado"
+                }
+              }
+            }
           }
         }
       }
@@ -1625,46 +1665,6 @@
             }
           }
         }
-      },
-      "patch": {
-        "tags": ["classes"],
-        "summary": "Editar um registro de aula",
-        "description": "Endpoint para edição de dados de um registro de uma aula. É possível enviar apenas os campos que necessitam de edição. Obrigatório a inserção do ID do registro a ser editado.",
-        "operationId": "updateClass",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ClassUpdate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "ERROR",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/QueryError"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Nenhum usuário encontrado",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ERRO: Registro não encontrado"
-                }
-              }
-            }
-          }
-        }
       }
     },
     "/courses": {
@@ -1720,6 +1720,46 @@
           },
           "404": {
             "description": "Nenhum Categoria encontrado"
+          }
+        }
+      },
+      "patch": {
+        "tags": ["courses"],
+        "summary": "Editar uma cursos",
+        "description": "Endpoint para edição de dados de um registro de um curso. É possível enviar apenas os campos que necessitam de edição. Obrigatório a inserção do ID do registro a ser editado.",
+        "operationId": "updateClass",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CourseUpdate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "ERROR",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QueryError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Nenhum usuário encontrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ERRO: Registro não encontrado"
+                }
+              }
+            }
           }
         }
       }
@@ -1806,46 +1846,6 @@
           },
           "404": {
             "description": "Categoria não encontrado",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ERRO: Registro não encontrado"
-                }
-              }
-            }
-          }
-        }
-      },
-      "patch": {
-        "tags": ["courses"],
-        "summary": "Editar uma cursos",
-        "description": "Endpoint para edição de dados de um registro de um curso. É possível enviar apenas os campos que necessitam de edição. Obrigatório a inserção do ID do registro a ser editado.",
-        "operationId": "updateClass",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CourseUpdate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "ERROR",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/QueryError"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Nenhum usuário encontrado",
             "content": {
               "application/json": {
                 "schema": {
