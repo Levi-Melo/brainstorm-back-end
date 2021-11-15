@@ -22,8 +22,12 @@
       "description": "Rota para gerenciamento de informações relacionadas aos registros de usuários (users)."
     },
     {
-      "name": "roles",
-      "description": "Rota para gerenciamento de informações relacionadas aos registro de cargos (Role)."
+      "name": "categories",
+      "description": "Rota para gerenciamento de informações relacionadas aos registro de Categorias (Category)."
+    },
+    {
+      "name": "answers",
+      "description": "Rota para gerenciamento de informações relacionadas aos registro de respostas (Answer)."
     },
     {
       "name": "contact",
@@ -40,19 +44,31 @@
       "description": "<SchemaDefinition schemaRef=\"#/components/schemas/User\" />\n"
     },
     {
-      "name": "role_model",
-      "x-displayName": "Role (Cargo)",
-      "description": "<SchemaDefinition schemaRef=\"#/components/schemas/Role\" />"
+      "name": "Category_model",
+      "x-displayName": "Category (Categoria)",
+      "description": "<SchemaDefinition schemaRef=\"#/components/schemas/Category\" />"
     }
   ],
   "x-tagGroups": [
     {
       "name": "Rotas - Usuários",
-      "tags": ["users", "roles", "contacts"]
+      "tags": ["users", "contacts"]
+    },
+    {
+      "name": "Rotas - Cursos",
+      "tags": ["categories"]
+    },
+    {
+      "name": "Rotas - Aulas",
+      "tags": ["answers"]
     },
     {
       "name": "Models - Usuários",
-      "tags": ["user_model", "role_model", "contact_model"]
+      "tags": ["user_model", "contact_model"]
+    },
+    {
+      "name": "Models - Cursos",
+      "tags": ["Category_model"]
     }
   ],
   "paths": {
@@ -433,14 +449,14 @@
         }
       }
     },
-    "/roles": {
+    "/categories": {
       "post": {
-        "tags": ["roles"],
-        "summary": "Adicionar novo cargo",
-        "description": "Endpoint para a adição de um novo registro de cargo ao sistema.",
-        "operationId": "addRole",
+        "tags": ["categories"],
+        "summary": "Adicionar nova Categoria",
+        "description": "Endpoint para a adição de um novo registro de categoria ao sistema.",
+        "operationId": "addCategory",
         "requestBody": {
-          "$ref": "#/components/requestBodies/Role"
+          "$ref": "#/components/requestBodies/Category"
         },
         "responses": {
           "201": {
@@ -448,7 +464,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/RoleResponse"
+                  "$ref": "#/components/schemas/CategoryResponse"
                 }
               }
             }
@@ -469,38 +485,38 @@
         }
       },
       "get": {
-        "tags": ["roles"],
-        "summary": "Listar cargos",
-        "description": "Endpoint para a listagem dos cargos registrados.",
-        "operationId": "listRole",
+        "tags": ["categories"],
+        "summary": "Listar Categorias",
+        "description": "Endpoint para a listagem dos Categorias registrados.",
+        "operationId": "listCategory",
         "responses": {
           "200": {
-            "description": "Devolve uma lista com todos os cargos",
+            "description": "Devolve uma lista com todos os Categorias",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/RoleSearchResponse"
+                  "$ref": "#/components/schemas/categoriesearchResponse"
                 }
               }
             }
           },
           "404": {
-            "description": "Nenhum cargo encontrado"
+            "description": "Nenhum Categoria encontrado"
           }
         }
       }
     },
-    "/roles/{id}": {
+    "/categories/{id}": {
       "get": {
-        "tags": ["roles"],
-        "summary": "Consultar cargo por ID",
-        "description": "Endpoint para consulta de um único registro de cargo, utilizando seu identificador único (ID).",
-        "operationId": "getIdRole",
+        "tags": ["categories"],
+        "summary": "Consultar Categoria por ID",
+        "description": "Endpoint para consulta de um único registro de Categoria, utilizando seu identificador único (ID).",
+        "operationId": "getIdCategory",
         "parameters": [
           {
             "name": "id",
             "in": "path",
-            "description": "Identificador único do registro do cargo",
+            "description": "Identificador único do registro do Categoria",
             "required": true,
             "schema": {
               "type": "string"
@@ -513,7 +529,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/RoleResponse"
+                  "$ref": "#/components/schemas/CategoryResponse"
                 }
               }
             }
@@ -529,7 +545,7 @@
             }
           },
           "404": {
-            "description": "Cargo não encontrado",
+            "description": "Categoria não encontrado",
             "content": {
               "application/json": {
                 "schema": {
@@ -541,15 +557,15 @@
         }
       },
       "post": {
-        "tags": ["roles"],
-        "summary": "Ativar um cargo",
-        "description": "Endpoint para a ativação de um registro de cargo.",
-        "operationId": "activeRole",
+        "tags": ["categories"],
+        "summary": "Ativar um Categoria",
+        "description": "Endpoint para a ativação de um registro de Categoria.",
+        "operationId": "activeCategory",
         "parameters": [
           {
             "name": "id",
             "in": "path",
-            "description": "Identificador único do registro do cargo",
+            "description": "Identificador único do registro do Categoria",
             "required": true,
             "schema": {
               "type": "string"
@@ -571,7 +587,7 @@
             }
           },
           "404": {
-            "description": "Cargo não encontrado",
+            "description": "Categoria não encontrado",
             "content": {
               "application/json": {
                 "schema": {
@@ -583,15 +599,15 @@
         }
       },
       "delete": {
-        "tags": ["roles"],
-        "summary": "Desativar um cargo",
-        "description": "Endpoint para a desativação de um registro de cargo.",
-        "operationId": "deleteRole",
+        "tags": ["categories"],
+        "summary": "Desativar um Categoria",
+        "description": "Endpoint para a desativação de um registro de Categoria.",
+        "operationId": "deleteCategory",
         "parameters": [
           {
             "name": "id",
             "in": "path",
-            "description": "Identificador único do registro do cargo",
+            "description": "Identificador único do registro do Categoria",
             "required": true,
             "schema": {
               "type": "string"
@@ -613,7 +629,7 @@
             }
           },
           "404": {
-            "description": "Cargo não encontrado",
+            "description": "Categoria não encontrado",
             "content": {
               "application/json": {
                 "schema": {
@@ -883,6 +899,238 @@
           }
         }
       }
+    },
+    "/answers": {
+      "post": {
+        "tags": ["answers"],
+        "summary": "Adicionar nova Categoria",
+        "description": "Endpoint para a adição de um novo registro de categoria ao sistema.",
+        "operationId": "addAnswer",
+        "requestBody": {
+          "$ref": "#/components/requestBodies/Answer"
+        },
+        "responses": {
+          "201": {
+            "description": "Adicionado com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AnswerResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Erro de requisição",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "get": {
+        "tags": ["answers"],
+        "summary": "Listar Categorias",
+        "description": "Endpoint para a listagem dos Categorias registrados.",
+        "operationId": "listAnswers",
+        "responses": {
+          "200": {
+            "description": "Devolve uma lista com todos os Categorias",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AnswersearchResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Nenhum Categoria encontrado"
+          }
+        }
+      },
+      "patch": {
+        "tags": ["answers"],
+        "summary": "Editar uma resposta",
+        "description": "Endpoint para edição de dados de um registro de uma resposta. É possível enviar apenas os campos que necessitam de edição. Obrigatório a inserção do ID do registro a ser editado.",
+        "operationId": "updateUser",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AnswerUpdate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "ERROR",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QueryError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Nenhum usuário encontrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ERRO: Registro não encontrado"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/answers/{id}": {
+      "get": {
+        "tags": ["answers"],
+        "summary": "Consultar Categoria por ID",
+        "description": "Endpoint para consulta de um único registro de resposta, utilizando seu identificador único (ID).",
+        "operationId": "getIdAnswers",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Identificador único do registro de resposta",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AnswerResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Erro de requisição",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Categoria não encontrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ERRO: Registro não encontrado"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["answers"],
+        "summary": "Ativar um Categoria",
+        "description": "Endpoint para a ativação de um registro de resposta.",
+        "operationId": "activeanswers",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Identificador único do registro de resposta",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Erro de requisição",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Categoria não encontrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ERRO: Registro não encontrado"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["answers"],
+        "summary": "Desativar um Categoria",
+        "description": "Endpoint para a desativação de um registro de resposta.",
+        "operationId": "deleteAnswers",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Identificador único do registro de resposta",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Erro de requisição",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Categoria não encontrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ERRO: Registro não encontrado"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
 
@@ -1007,14 +1255,14 @@
             "type": "string"
           },
           "type": {
-            "description": "Tipo do usuário. Determinará seu fluxo de trabalho no sistema de acordo com suas funcionalidades relacionadas. Opções de tipo:\n * `1` - Usuário PRMA\n * `2` - Fornecedor\n * `3` - Policia\n * `4` - Cliente\n * `5` - Funcionário de Cliente\n * `6` - Funcionário de Fornecedor",
-            "type": "number",
-            "enum": [1, 2, 3, 4, 5, 6]
+            "description": "Tipo do usuário. Determinará seu fluxo de trabalho no sistema de acordo com suas funcionalidades relacionadas. Também criará um registro em um dos outros Models relacionados as rotas de usuário. Opções de tipo:\n * `Aluno` - Usuário Aluno\n * `Professor` - Usuário Professor",
+            "type": "string",
+            "enum": ["Aluno", "Professor"]
           },
-          "role": {
+          "category": {
             "description": "Nível de acesso do usuário",
             "type": "object",
-            "$ref": "#/components/schemas/Role"
+            "$ref": "#/components/schemas/Category"
           },
           "createdAt": {
             "description": "Data e hora de criação",
@@ -1035,7 +1283,7 @@
       },
       "UserPost": {
         "type": "object",
-        "required": ["email", "name", "password", "rg", "cpf", "role", "type"],
+        "required": ["email", "name", "password", "rg", "cpf", "type"],
         "properties": {
           "name": {
             "description": "Nome completo do usuário",
@@ -1058,14 +1306,10 @@
             "description": "Senha do usuário",
             "type": "string"
           },
-          "role": {
-            "description": "Identificador único do cargo do usuário",
-            "type": "string"
-          },
           "type": {
-            "description": "Tipo do usuário. Determinará seu fluxo de trabalho no sistema de acordo com suas funcionalidades relacionadas. Também criará um registro em um dos outros Models relacionados as rotas de usuário. Opções de tipo:\n * `1` - Usuário PRMA\n * `2` - Fornecedor\n * `3` - Policia\n * `4` - Cliente\n * `5` - Funcionário de Cliente\n * `6` - Funcionário de Fornecedor",
-            "type": "number",
-            "enum": [1, 2, 3, 4, 5, 6]
+            "description": "Tipo do usuário. Determinará seu fluxo de trabalho no sistema de acordo com suas funcionalidades relacionadas. Também criará um registro em um dos outros Models relacionados as rotas de usuário. Opções de tipo:\n * `Aluno` - Usuário Aluno\n * `Professor` - Usuário Professor",
+            "type": "string",
+            "enum": ["Aluno", "Professor"]
           }
         }
       },
@@ -1110,13 +1354,9 @@
           "password": {
             "type": "string"
           },
-          "role": {
-            "type": "string",
-            "description": "Identificador único do cargo"
-          },
           "type": {
-            "type": "number",
-            "enum": [1, 2, 3, 4, 5, 6]
+            "type": "string",
+            "enum": ["Aluno", "Professor"]
           }
         }
       },
@@ -1362,7 +1602,24 @@
           }
         }
       },
-      "Role": {
+      "Answer": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string",
+            "description": "Texto da resposta"
+          },
+          "user": {
+            "type": "string",
+            "description": "identificador unico do usuário"
+          },
+          "question": {
+            "type": "string",
+            "description": "identificador unico da pergunta"
+          }
+        }
+      },
+      "Category": {
         "type": "object",
         "properties": {
           "active": {
@@ -1371,15 +1628,19 @@
           },
           "id": {
             "type": "string",
-            "description": "Identificador único do cargo"
+            "description": "Identificador único do Categoria"
           },
           "name": {
             "type": "string",
-            "description": "Nome do cargo"
+            "description": "Nome do Categoria"
           },
           "initials": {
             "type": "string",
-            "description": "Sigla do cargo"
+            "description": "Sigla do Categoria"
+          },
+          "image": {
+            "type": "string",
+            "description": "link da imagem da categoria"
           },
           "createdAt": {
             "description": "Data e hora de criação",
@@ -1393,21 +1654,25 @@
           }
         }
       },
-      "RolePost": {
+      "CategoryPost": {
         "type": "object",
-        "required": ["name", "initials"],
+        "required": ["name", "initials", "image"],
         "properties": {
           "name": {
             "type": "string",
-            "description": "Nome do cargo"
+            "description": "Nome do Categoria"
           },
           "initials": {
             "type": "string",
-            "description": "Sigla do cargo"
+            "description": "Sigla do Categoria"
+          },
+          "image": {
+            "type": "string",
+            "description": "link da imagem da categoria"
           }
         }
       },
-      "RoleResponse": {
+      "CategoryResponse": {
         "type": "object",
         "properties": {
           "status": {
@@ -1415,11 +1680,11 @@
           },
           "data": {
             "type": "object",
-            "$ref": "#/components/schemas/Role"
+            "$ref": "#/components/schemas/Category"
           }
         }
       },
-      "RoleSearchResponse": {
+      "categoriesearchResponse": {
         "type": "object",
         "properties": {
           "status": {
@@ -1428,8 +1693,74 @@
           "data": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/Role"
+              "$ref": "#/components/schemas/Category"
             }
+          }
+        }
+      },
+      "AnswerPost": {
+        "type": "object",
+        "required": ["text", "user", "question"],
+        "properties": {
+          "text": {
+            "type": "string",
+            "description": "Texto da resposta"
+          },
+          "user": {
+            "type": "string",
+            "description": "identificador unico do usuário"
+          },
+          "question": {
+            "type": "string",
+            "description": "identificador unico da pergunta"
+          }
+        }
+      },
+      "AnswerResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "boolean"
+          },
+          "data": {
+            "type": "object",
+            "$ref": "#/components/schemas/Answer"
+          }
+        }
+      },
+      "AnswersearchResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "boolean"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Answer"
+            }
+          }
+        }
+      },
+      "AnswerUpdate": {
+        "type": "object",
+        "required": ["id"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Identificador único do registro que será editado"
+          },
+          "text": {
+            "type": "string",
+            "description": "Texto da resposta"
+          },
+          "user": {
+            "type": "string",
+            "description": "identificador unico do usuário"
+          },
+          "question": {
+            "type": "string",
+            "description": "identificador unico da pergunta"
           }
         }
       }
@@ -1493,15 +1824,26 @@
           }
         }
       },
-      "Role": {
+      "Category": {
         "content": {
           "application/json": {
             "schema": {
-              "$ref": "#/components/schemas/RolePost"
+              "$ref": "#/components/schemas/CategoryPost"
             }
           }
         },
-        "description": "Objeto de cargo válido para o cadastro:",
+        "description": "Objeto de Categoria válido para o cadastro:",
+        "required": true
+      },
+      "Answer": {
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/CategoryPost"
+            }
+          }
+        },
+        "description": "Objeto de Categoria válido para o cadastro:",
         "required": true
       }
     }
