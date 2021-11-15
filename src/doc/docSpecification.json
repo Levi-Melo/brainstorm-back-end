@@ -22,6 +22,10 @@
       "description": "Rota para gerenciamento de informações relacionadas aos registros de usuários (users)."
     },
     {
+      "name": "classes",
+      "description": "Rota para gerenciamento de informações relacionadas aos registros de aulas (classes)."
+    },
+    {
       "name": "categories",
       "description": "Rota para gerenciamento de informações relacionadas aos registro de Categorias (Category)."
     },
@@ -56,6 +60,16 @@
       "name": "ComplementaryAnswer_model",
       "x-displayName": "Complementary Answer (Resposta complementar)",
       "description": "<SchemaDefinition schemaRef=\"#/components/schemas/ComplementaryAnswer\" />"
+    },
+    {
+      "name": "answers_model",
+      "x-displayName": "Answer (Resposta)",
+      "description": "<SchemaDefinition schemaRef=\"#/components/schemas/Answer\" />"
+    },
+    {
+      "name": "Class_model",
+      "x-displayName": "Class (Aula)",
+      "description": "<SchemaDefinition schemaRef=\"#/components/schemas/Class\" />"
     }
   ],
   "x-tagGroups": [
@@ -69,7 +83,7 @@
     },
     {
       "name": "Rotas - Aulas",
-      "tags": ["answers", "complementary Answers"]
+      "tags": ["answers", "complementary Answers", "classes"]
     },
     {
       "name": "Models - Usuários",
@@ -81,7 +95,7 @@
     },
     {
       "name": "Models - Aulas",
-      "tags": ["ComplementaryAnswer_model"]
+      "tags": ["ComplementaryAnswer_model", "Class_model", "answers_model"]
     }
   ],
   "paths": {
@@ -1376,6 +1390,238 @@
           }
         }
       }
+    },
+    "/classes": {
+      "post": {
+        "tags": ["classes"],
+        "summary": "Adicionar nova resposta complementar",
+        "description": "Endpoint para a adição de um novo registro de categoria ao sistema.",
+        "operationId": "addClass",
+        "requestBody": {
+          "$ref": "#/components/requestBodies/Class"
+        },
+        "responses": {
+          "201": {
+            "description": "Adicionado com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClassResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Erro de requisição",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "get": {
+        "tags": ["classes"],
+        "summary": "Listar respostas complementares",
+        "description": "Endpoint para a listagem dos Categorias registrados.",
+        "operationId": "listClass",
+        "responses": {
+          "200": {
+            "description": "Devolve uma lista com todos os Categorias",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClasssearchResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Nenhum Categoria encontrado"
+          }
+        }
+      },
+      "patch": {
+        "tags": ["classes"],
+        "summary": "Editar uma resposta complementar",
+        "description": "Endpoint para edição de dados de um registro de uma resposta. É possível enviar apenas os campos que necessitam de edição. Obrigatório a inserção do ID do registro a ser editado.",
+        "operationId": "updateClass",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClassUpdate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "ERROR",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QueryError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Nenhum usuário encontrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ERRO: Registro não encontrado"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/classes/{id}": {
+      "get": {
+        "tags": ["classes"],
+        "summary": "Consultar resposta complementar por ID",
+        "description": "Endpoint para consulta de um único registro de resposta complementar, utilizando seu identificador único (ID).",
+        "operationId": "getIdClass",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Identificador único do registro de resposta",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClassResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Erro de requisição",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Categoria não encontrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ERRO: Registro não encontrado"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["classes"],
+        "summary": "Ativar um resposta complementar",
+        "description": "Endpoint para a ativação de um registro de resposta.",
+        "operationId": "activeClass",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Identificador único do registro de resposta",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Erro de requisição",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Categoria não encontrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ERRO: Registro não encontrado"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["classes"],
+        "summary": "Desativar um resposta complementar",
+        "description": "Endpoint para a desativação de um registro de resposta complementar.",
+        "operationId": "deleteClass",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Identificador único do registro de resposta",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Erro de requisição",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Categoria não encontrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ERRO: Registro não encontrado"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
 
@@ -2091,6 +2337,101 @@
             "description": "identificador unico de resposta"
           }
         }
+      },
+      "Class": {
+        "type": "object",
+        "properties": {
+          "description": {
+            "type": "string",
+            "description": "Descrição do curso"
+          },
+          "link": {
+            "type": "string",
+            "description": "link da aula"
+          },
+          "name": {
+            "type": "string",
+            "description": "Nome do curso"
+          },
+          "course": {
+            "type": "string",
+            "description": "identificador unico de curso"
+          }
+        }
+      },
+      "ClassPost": {
+        "type": "object",
+        "required": ["description", "link", "name", "course"],
+        "properties": {
+          "description": {
+            "type": "string",
+            "description": "Descrição do curso"
+          },
+          "link": {
+            "type": "string",
+            "description": "link da aula"
+          },
+          "name": {
+            "type": "string",
+            "description": "Nome do curso"
+          },
+          "course": {
+            "type": "string",
+            "description": "identificador unico de curso"
+          }
+        }
+      },
+      "ClassResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "boolean"
+          },
+          "data": {
+            "type": "object",
+            "$ref": "#/components/schemas/Class"
+          }
+        }
+      },
+      "ClasssearchResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "boolean"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Class"
+            }
+          }
+        }
+      },
+      "ClassUpdate": {
+        "type": "object",
+        "required": ["id"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Identificador único do registro que será editado"
+          },
+          "description": {
+            "type": "string",
+            "description": "Descrição do curso"
+          },
+          "link": {
+            "type": "string",
+            "description": "link da aula"
+          },
+          "name": {
+            "type": "string",
+            "description": "Nome do curso"
+          },
+          "course": {
+            "type": "string",
+            "description": "identificador unico de curso"
+          }
+        }
       }
     },
     "requestBodies": {
@@ -2099,6 +2440,15 @@
           "application/json": {
             "schema": {
               "$ref": "#/components/schemas/UserPost"
+            }
+          }
+        }
+      },
+      "Class": {
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Class"
             }
           }
         }
