@@ -9,7 +9,7 @@ import {
 
 import { v4 as uuid } from "uuid";
 
-@Entity("Categories")
+@Entity("categories")
 @Unique(["name", "initials"])
 export class Category {
   @PrimaryColumn()

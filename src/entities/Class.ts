@@ -11,7 +11,7 @@ import {
 import { v4 as uuid } from "uuid";
 import { Course } from "./Course";
 
-@Entity("Classes")
+@Entity("classes")
 export class Class {
   @PrimaryColumn()
   public readonly id: string;

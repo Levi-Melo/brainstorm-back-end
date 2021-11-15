@@ -24,10 +24,6 @@ export class classes1636762848086 implements MigrationInterface {
             type: "varchar",
           },
           {
-            name: "image",
-            type: "varchar",
-          },
-          {
             name: "course",
             type: "varchar",
           },

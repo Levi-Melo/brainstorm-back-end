@@ -1,6 +1,7 @@
 import express, { Request, Response, NextFunction } from "express";
 import "express-async-errors";
 import cors from "cors";
+import "./data/connection";
 
 import variables from "dotenv";
 variables.config({
