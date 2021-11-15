@@ -7,7 +7,7 @@ import {
   UpdateDateColumn,
 } from "typeorm";
 
-import { v4 as generateUuid } from "uuid";
+import { v4 as uuid } from "uuid";
 
 @Entity("Categories")
 @Unique(["name", "initials"])
@@ -37,7 +37,7 @@ export class Category {
 
     if (!id) {
       this.active = true;
-      this.id = generateUuid();
+      this.id = uuid();
     } else {
       this.id = id;
     }

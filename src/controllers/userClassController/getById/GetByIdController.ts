@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 
-import { GetByIdService } from "../../../services/roleServices/getById/GetByIdService";
+import { GetByIdService } from "../../../services/userClassServices/getById/GetByIdService";
 import { param, validationResult } from "express-validator";
 
 import { Fail } from "../../../entities/Error";

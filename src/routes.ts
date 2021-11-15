@@ -8,7 +8,6 @@ router.use("/answers", routes.AnswerRoutes);
 router.use("/classes", routes.ClassRoutes);
 router.use("/complementaryAnswers", routes.ComplementaryAnswerRoutes);
 router.use("/courses", routes.CourseRoutes);
-router.use("/roles", routes.RoleRoutes);
 router.use("/teachers", routes.TeacherRoutes);
 router.use("/usersClasses", routes.UserClassRoutes);
 router.use("/categories", routes.categoryRoutes);

@@ -2,14 +2,11 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  JoinColumn,
-  ManyToOne,
   PrimaryColumn,
   UpdateDateColumn,
 } from "typeorm";
 
-import { uuid } from "uuidv4";
-import { Role } from "./Role";
+import { v4 as uuid } from "uuid";
 
 @Entity("users")
 export class User {
@@ -41,14 +38,13 @@ export class User {
   public active: boolean;
 
   @Column()
+  public type: string;
+
+  @Column()
   public confirmationCode: string;
 
   @Column()
   public confirmedAccount: boolean;
-
-  @JoinColumn({ name: "role_id" })
-  @ManyToOne((type) => Role, (role) => role.id)
-  public role: Role;
 
   constructor(
     User: Omit<User, "id" | "active" | "confirmationCode" | "confirmedAccount">,

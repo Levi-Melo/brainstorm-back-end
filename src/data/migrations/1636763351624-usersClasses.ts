@@ -4,7 +4,7 @@ export class usersClasses1636763351624 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
-        name: "users_answers",
+        name: "users_classes",
         columns: [
           {
             name: "id",
@@ -49,6 +49,6 @@ export class usersClasses1636763351624 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable("users_answers");
+    await queryRunner.dropTable("users_classes");
   }
 }

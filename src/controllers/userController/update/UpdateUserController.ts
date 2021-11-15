@@ -9,7 +9,7 @@ import { IUpdateUserController } from "./IUpdateUserController";
 
 class UpdateUserController implements IUpdateUserController {
   async handle(req: Request, res: Response) {
-    const { id, name, cpf, rg, email, password, role } = req.body;
+    const { id, name, cpf, rg, email, password, type } = req.body;
 
     const user = new User(
       {
@@ -18,7 +18,7 @@ class UpdateUserController implements IUpdateUserController {
         cpf,
         password,
         rg,
-        role,
+        type,
       },
       id
     );

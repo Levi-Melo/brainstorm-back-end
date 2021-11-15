@@ -8,7 +8,7 @@ import {
   UpdateDateColumn,
 } from "typeorm";
 
-import { uuid } from "uuidv4";
+import { v4 as uuid } from "uuid";
 import { User } from "./User";
 
 @Entity("teachers")

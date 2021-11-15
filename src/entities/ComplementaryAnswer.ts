@@ -8,11 +8,11 @@ import {
   UpdateDateColumn,
 } from "typeorm";
 
-import { uuid } from "uuidv4";
+import { v4 as uuid } from "uuid";
 import { Answer } from "./Answer";
 import { User } from "./User";
 
-@Entity("ComplementaryAnswers")
+@Entity("complementary_answers")
 export class ComplementaryAnswer {
   @PrimaryColumn()
   public readonly id?: string;

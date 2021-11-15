@@ -8,11 +8,11 @@ import {
   UpdateDateColumn,
 } from "typeorm";
 
-import { uuid } from "uuidv4";
+import { v4 as uuid } from "uuid";
 import { Category } from "./Category";
 import { User } from "./User";
 
-@Entity("Courses")
+@Entity("courses")
 export class Course {
   @PrimaryColumn()
   public readonly id?: string;

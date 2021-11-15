@@ -7,12 +7,11 @@ import {
   UpdateDateColumn,
 } from "typeorm";
 
-import { uuid } from "uuidv4";
+import { v4 as uuid } from "uuid";
 import { Class } from "./Class";
-import { Role } from "./Role";
 import { User } from "./User";
 
-@Entity("UsersClasses")
+@Entity("users_classes")
 export class UserClass {
   @PrimaryColumn()
   public readonly id?: string;
@@ -24,7 +23,7 @@ export class UserClass {
   public readonly updatedAt?: string;
 
   @JoinColumn({ name: "user_id" })
-  @ManyToOne((type) => Role, (role) => role.id)
+  @ManyToOne((type) => User, (user) => user.id)
   public user: User;
 
   @JoinColumn({ name: "Class_id" })

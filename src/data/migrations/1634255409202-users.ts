@@ -35,6 +35,10 @@ export class users1634255409202 implements MigrationInterface {
             type: "varchar",
           },
           {
+            name: "type",
+            type: "varchar",
+          },
+          {
             name: "active",
             type: "boolean",
           },
@@ -47,10 +51,6 @@ export class users1634255409202 implements MigrationInterface {
             type: "boolean",
           },
           {
-            name: "role",
-            type: "varchar",
-          },
-          {
             name: "created_at",
             type: "timestamp",
             default: "now()",
@@ -59,14 +59,6 @@ export class users1634255409202 implements MigrationInterface {
             name: "updated_at",
             type: "timestamp",
             default: "now()",
-          },
-        ],
-        foreignKeys: [
-          {
-            name: "FK_USER_ROLE",
-            referencedTableName: "roles",
-            referencedColumnNames: ["id"],
-            columnNames: ["role"],
           },
         ],
         uniques: [
