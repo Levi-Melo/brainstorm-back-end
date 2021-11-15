@@ -34,6 +34,10 @@
       "description": "Rota para gerenciamento de informações relacionadas a entidade de contato (Contact)."
     },
     {
+      "name": "complementary Answers",
+      "description": "Rota para gerenciamento de informações relacionadas a entidade de respostas complementares (Complementary Answers)."
+    },
+    {
       "name": "contact_model",
       "x-displayName": "Contact (Contato)",
       "description": "<SchemaDefinition schemaRef=\"#/components/schemas/Contact\" />\n"
@@ -47,6 +51,11 @@
       "name": "Category_model",
       "x-displayName": "Category (Categoria)",
       "description": "<SchemaDefinition schemaRef=\"#/components/schemas/Category\" />"
+    },
+    {
+      "name": "ComplementaryAnswer_model",
+      "x-displayName": "Complementary Answer (Resposta complementar)",
+      "description": "<SchemaDefinition schemaRef=\"#/components/schemas/ComplementaryAnswer\" />"
     }
   ],
   "x-tagGroups": [
@@ -60,7 +69,7 @@
     },
     {
       "name": "Rotas - Aulas",
-      "tags": ["answers"]
+      "tags": ["answers", "complementary Answers"]
     },
     {
       "name": "Models - Usuários",
@@ -69,6 +78,10 @@
     {
       "name": "Models - Cursos",
       "tags": ["Category_model"]
+    },
+    {
+      "name": "Models - Aulas",
+      "tags": ["ComplementaryAnswer_model"]
     }
   ],
   "paths": {
@@ -903,8 +916,8 @@
     "/answers": {
       "post": {
         "tags": ["answers"],
-        "summary": "Adicionar nova Categoria",
-        "description": "Endpoint para a adição de um novo registro de categoria ao sistema.",
+        "summary": "Adicionar nova reposta a uma pergunta",
+        "description": "Endpoint para a adição de um novo registro de resposta ao sistema.",
         "operationId": "addAnswer",
         "requestBody": {
           "$ref": "#/components/requestBodies/Answer"
@@ -937,8 +950,8 @@
       },
       "get": {
         "tags": ["answers"],
-        "summary": "Listar Categorias",
-        "description": "Endpoint para a listagem dos Categorias registrados.",
+        "summary": "Listar respostas",
+        "description": "Endpoint para a listagem das respostas registrados.",
         "operationId": "listAnswers",
         "responses": {
           "200": {
@@ -1093,6 +1106,238 @@
         "tags": ["answers"],
         "summary": "Desativar um Categoria",
         "description": "Endpoint para a desativação de um registro de resposta.",
+        "operationId": "deleteAnswers",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Identificador único do registro de resposta",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Erro de requisição",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Categoria não encontrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ERRO: Registro não encontrado"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/complementaryAnswers": {
+      "post": {
+        "tags": ["complementary Answers"],
+        "summary": "Adicionar nova resposta complementar",
+        "description": "Endpoint para a adição de um novo registro de categoria ao sistema.",
+        "operationId": "addComplementaryAnswer",
+        "requestBody": {
+          "$ref": "#/components/requestBodies/ComplementaryAnswer"
+        },
+        "responses": {
+          "201": {
+            "description": "Adicionado com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ComplementaryAnswerResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Erro de requisição",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "get": {
+        "tags": ["complementary Answers"],
+        "summary": "Listar respostas complementares",
+        "description": "Endpoint para a listagem dos Categorias registrados.",
+        "operationId": "listComplementaryAnswer",
+        "responses": {
+          "200": {
+            "description": "Devolve uma lista com todos os Categorias",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ComplementaryAnswersearchResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Nenhum Categoria encontrado"
+          }
+        }
+      },
+      "patch": {
+        "tags": ["complementary Answers"],
+        "summary": "Editar uma resposta complementar",
+        "description": "Endpoint para edição de dados de um registro de uma resposta. É possível enviar apenas os campos que necessitam de edição. Obrigatório a inserção do ID do registro a ser editado.",
+        "operationId": "updateComplementaryAnswer",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ComplementaryAnswerUpdate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "ERROR",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QueryError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Nenhum usuário encontrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ERRO: Registro não encontrado"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/complementaryAnswers/{id}": {
+      "get": {
+        "tags": ["complementary Answers"],
+        "summary": "Consultar resposta complementar por ID",
+        "description": "Endpoint para consulta de um único registro de resposta complementar, utilizando seu identificador único (ID).",
+        "operationId": "getIdAnswers",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Identificador único do registro de resposta",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ComplementaryAnswerResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Erro de requisição",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Categoria não encontrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ERRO: Registro não encontrado"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["complementary Answers"],
+        "summary": "Ativar um resposta complementar",
+        "description": "Endpoint para a ativação de um registro de resposta.",
+        "operationId": "activeanswers",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Identificador único do registro de resposta",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Erro de requisição",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Categoria não encontrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ERRO: Registro não encontrado"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["complementary Answers"],
+        "summary": "Desativar um resposta complementar",
+        "description": "Endpoint para a desativação de um registro de resposta complementar.",
         "operationId": "deleteAnswers",
         "parameters": [
           {
@@ -1602,23 +1847,6 @@
           }
         }
       },
-      "Answer": {
-        "type": "object",
-        "properties": {
-          "text": {
-            "type": "string",
-            "description": "Texto da resposta"
-          },
-          "user": {
-            "type": "string",
-            "description": "identificador unico do usuário"
-          },
-          "question": {
-            "type": "string",
-            "description": "identificador unico da pergunta"
-          }
-        }
-      },
       "Category": {
         "type": "object",
         "properties": {
@@ -1698,6 +1926,23 @@
           }
         }
       },
+      "Answer": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string",
+            "description": "Texto da resposta"
+          },
+          "user": {
+            "type": "string",
+            "description": "identificador unico do usuário"
+          },
+          "question": {
+            "type": "string",
+            "description": "identificador unico da pergunta"
+          }
+        }
+      },
       "AnswerPost": {
         "type": "object",
         "required": ["text", "user", "question"],
@@ -1761,6 +2006,89 @@
           "question": {
             "type": "string",
             "description": "identificador unico da pergunta"
+          }
+        }
+      },
+      "ComplementaryAnswer": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string",
+            "description": "Texto da resposta"
+          },
+          "user": {
+            "type": "string",
+            "description": "identificador unico do usuário"
+          },
+          "answer": {
+            "type": "string",
+            "description": "identificador unico da resposta"
+          }
+        }
+      },
+      "ComplementaryAnswerPost": {
+        "type": "object",
+        "required": ["text", "user", "answer"],
+        "properties": {
+          "text": {
+            "type": "string",
+            "description": "Texto da resposta"
+          },
+          "user": {
+            "type": "string",
+            "description": "identificador unico do usuário"
+          },
+          "answer": {
+            "type": "string",
+            "description": "identificador unico da resposta"
+          }
+        }
+      },
+      "ComplementaryAnswerResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "boolean"
+          },
+          "data": {
+            "type": "object",
+            "$ref": "#/components/schemas/ComplementaryAnswer"
+          }
+        }
+      },
+      "ComplementaryAnswersearchResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "boolean"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ComplementaryAnswer"
+            }
+          }
+        }
+      },
+      "ComplementaryAnswerUpdate": {
+        "type": "object",
+        "required": ["id"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Identificador único do registro que será editado"
+          },
+          "text": {
+            "type": "string",
+            "description": "Texto da resposta"
+          },
+          "user": {
+            "type": "string",
+            "description": "identificador unico do usuário"
+          },
+          "answer": {
+            "type": "string",
+            "description": "identificador unico de resposta"
           }
         }
       }
@@ -1839,7 +2167,18 @@
         "content": {
           "application/json": {
             "schema": {
-              "$ref": "#/components/schemas/CategoryPost"
+              "$ref": "#/components/schemas/AnswerPost"
+            }
+          }
+        },
+        "description": "Objeto de Categoria válido para o cadastro:",
+        "required": true
+      },
+      "ComplementaryAnswer": {
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ComplementaryAnswerPost"
             }
           }
         },

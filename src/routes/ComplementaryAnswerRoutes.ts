@@ -7,6 +7,8 @@ router.post("/", controllers.createController);
 
 router.get("/:id", controllers.getByIdController);
 
+router.get("/", controllers.filterController);
+
 router.post("/:id", controllers.activeController);
 
 router.patch("/", controllers.updateController);
