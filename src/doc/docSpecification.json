@@ -26,6 +26,10 @@
       "description": "Rota para gerenciamento de informações relacionadas aos registros de cursos (courses)."
     },
     {
+      "name": "Teachers",
+      "description": "Rota para gerenciamento de informações relacionadas aos registros de professores (teachers)."
+    },
+    {
       "name": "classes",
       "description": "Rota para gerenciamento de informações relacionadas aos registros de aulas (classes)."
     },
@@ -74,6 +78,11 @@
       "name": "Class_model",
       "x-displayName": "Class (Aula)",
       "description": "<SchemaDefinition schemaRef=\"#/components/schemas/Class\" />"
+    },
+    {
+      "name": "course_model",
+      "x-displayName": "Course (Curso)",
+      "description": "<SchemaDefinition schemaRef=\"#/components/schemas/Course\" />"
     }
   ],
   "x-tagGroups": [
@@ -83,7 +92,7 @@
     },
     {
       "name": "Rotas - Cursos",
-      "tags": ["categories"]
+      "tags": ["categories", "courses"]
     },
     {
       "name": "Rotas - Aulas",
@@ -95,7 +104,7 @@
     },
     {
       "name": "Models - Cursos",
-      "tags": ["Category_model"]
+      "tags": ["Category_model", "course_model"]
     },
     {
       "name": "Models - Aulas",
@@ -1898,6 +1907,238 @@
           }
         }
       }
+    },
+    "/teachers": {
+      "post": {
+        "tags": ["Teachers"],
+        "summary": "Adicionar novo registro de professor",
+        "description": "Endpoint para a adição de um novo registro de professor ao sistema.",
+        "operationId": "addClass",
+        "requestBody": {
+          "$ref": "#/components/requestBodies/Teacher"
+        },
+        "responses": {
+          "201": {
+            "description": "Adicionado com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TeacherResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Erro de requisição",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "get": {
+        "tags": ["Teachers"],
+        "summary": "Listar professores",
+        "description": "Endpoint para a listagem dos professores registrados.",
+        "operationId": "listCourse",
+        "responses": {
+          "200": {
+            "description": "Devolve uma lista com todos professores",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TeachersearchResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Nenhum Categoria encontrado"
+          }
+        }
+      },
+      "patch": {
+        "tags": ["Teachers"],
+        "summary": "Editar uma professor",
+        "description": "Endpoint para edição de dados de um registro de um professor. É possível enviar apenas os campos que necessitam de edição. Obrigatório a inserção do ID do registro a ser editado.",
+        "operationId": "updateClass",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TeacherUpdate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "ERROR",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QueryError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Nenhum usuário encontrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ERRO: Registro não encontrado"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/teachers/{id}": {
+      "get": {
+        "tags": ["Teachers"],
+        "summary": "Consultar professor por ID",
+        "description": "Endpoint para consulta de um único registro de professor, utilizando seu identificador único (ID).",
+        "operationId": "getIdClass",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Identificador único do registro de professor",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TeacherResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Erro de requisição",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Categoria não encontrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ERRO: Registro não encontrado"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["Teachers"],
+        "summary": "Ativar um professor",
+        "description": "Endpoint para a ativação de um professor.",
+        "operationId": "activeClass",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Identificador único do registro de professor",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Erro de requisição",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Categoria não encontrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ERRO: Registro não encontrado"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Teachers"],
+        "summary": "Desativar um professor",
+        "description": "Endpoint para a desativação de um registro de professor.",
+        "operationId": "deleteClass",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Identificador único do registro de professor",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Erro de requisição",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Categoria não encontrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ERRO: Registro não encontrado"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
 
@@ -2862,6 +3103,101 @@
             "description": "identificador unico de usuário"
           }
         }
+      },
+      "Teacher": {
+        "type": "object",
+        "properties": {
+          "bio": {
+            "type": "string",
+            "description": "Biografia do professor"
+          },
+          "name": {
+            "type": "string",
+            "description": "Nome do Professor"
+          },
+          "image": {
+            "type": "string",
+            "description": "link da imagem do Professor"
+          },
+          "user": {
+            "type": "string",
+            "description": "identificador unico de usuário"
+          }
+        }
+      },
+      "TeacherPost": {
+        "type": "object",
+        "required": ["name", "bio", "user"],
+        "properties": {
+          "bio": {
+            "type": "string",
+            "description": "Biografia do professor"
+          },
+          "name": {
+            "type": "string",
+            "description": "Nome do Professor"
+          },
+          "image": {
+            "type": "string",
+            "description": "link da imagem do Professor"
+          },
+          "user": {
+            "type": "string",
+            "description": "identificador unico de usuário"
+          }
+        }
+      },
+      "TeacherResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "boolean"
+          },
+          "data": {
+            "type": "object",
+            "$ref": "#/components/schemas/Teacher"
+          }
+        }
+      },
+      "TeachersearchResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "boolean"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Teacher"
+            }
+          }
+        }
+      },
+      "TeacherUpdate": {
+        "type": "object",
+        "required": ["id"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Identificador único do registro que será editado"
+          },
+          "bio": {
+            "type": "string",
+            "description": "Biografia do professor"
+          },
+          "name": {
+            "type": "string",
+            "description": "Nome do Professor"
+          },
+          "image": {
+            "type": "string",
+            "description": "link da imagem do Professor"
+          },
+          "user": {
+            "type": "string",
+            "description": "identificador unico de usuário"
+          }
+        }
       }
     },
     "requestBodies": {
@@ -2879,6 +3215,15 @@
           "application/json": {
             "schema": {
               "$ref": "#/components/schemas/Class"
+            }
+          }
+        }
+      },
+      "Teacher": {
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Teacher"
             }
           }
         }
