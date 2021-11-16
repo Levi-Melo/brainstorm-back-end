@@ -26,6 +26,10 @@
       "description": "Rota para gerenciamento de informações relacionadas aos registros de cursos (courses)."
     },
     {
+      "name": "users Classes",
+      "description": "Rota para gerenciamento de informações relacionadas aos registros de relações de usuário e aula (UsersClass)."
+    },
+    {
       "name": "Teachers",
       "description": "Rota para gerenciamento de informações relacionadas aos registros de professores (teachers)."
     },
@@ -88,7 +92,7 @@
   "x-tagGroups": [
     {
       "name": "Rotas - Usuários",
-      "tags": ["users", "contacts"]
+      "tags": ["users", "contacts", "Teachers", "users Classes"]
     },
     {
       "name": "Rotas - Cursos",
@@ -2139,6 +2143,103 @@
           }
         }
       }
+    },
+    "/usersClasses": {
+      "post": {
+        "tags": ["users Classes"],
+        "summary": "Adicionar novo registro de relação entre Usuário e aulas",
+        "description": "Endpoint para a adição de um novo registro de relação entre Usuário e aulas ao sistema.",
+        "operationId": "addClass",
+        "requestBody": {
+          "$ref": "#/components/requestBodies/UsersClass"
+        },
+        "responses": {
+          "201": {
+            "description": "Adicionado com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UsersClassResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Erro de requisição",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "get": {
+        "tags": ["users Classes"],
+        "summary": "Listar de relação entre Usuário e aulas",
+        "description": "Endpoint para a listagem de relação entre Usuário e aulas registrados.",
+        "operationId": "listCourse",
+        "responses": {
+          "200": {
+            "description": "Devolve uma lista com todas relações entre usuários e aulas",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UsersClasssearchResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Nenhum Categoria encontrado"
+          }
+        }
+      },
+      "patch": {
+        "tags": ["users Classes"],
+        "summary": "Editar uma  relação entre Usuário e aulas",
+        "description": "Endpoint para edição de dados de um registro de relação entre Usuário e aulas. É possível enviar apenas os campos que necessitam de edição. Obrigatório a inserção do ID do registro a ser editado.",
+        "operationId": "updateClass",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UsersClassUpdate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "ERROR",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QueryError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Nenhum usuário encontrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ERRO: Registro não encontrado"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
 
@@ -3198,6 +3299,77 @@
             "description": "identificador unico de usuário"
           }
         }
+      },
+      "UsersClass": {
+        "type": "object",
+        "properties": {
+          "classId": {
+            "type": "string",
+            "description": "identificador unico de uma aula"
+          },
+          "user": {
+            "type": "string",
+            "description": "identificador unico de usuário"
+          }
+        }
+      },
+      "UsersClassPost": {
+        "type": "object",
+        "required": ["classId", "user"],
+        "properties": {
+          "classId": {
+            "type": "string",
+            "description": "identificador unico de uma aula"
+          },
+          "user": {
+            "type": "string",
+            "description": "identificador unico de usuário"
+          }
+        }
+      },
+      "UsersClassResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "boolean"
+          },
+          "data": {
+            "type": "object",
+            "$ref": "#/components/schemas/UsersClass"
+          }
+        }
+      },
+      "UsersClasssearchResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "boolean"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/UsersClass"
+            }
+          }
+        }
+      },
+      "UsersClassUpdate": {
+        "type": "object",
+        "required": ["id"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Identificador único do registro que será editado"
+          },
+          "classId": {
+            "type": "string",
+            "description": "identificador unico de uma aula"
+          },
+          "user": {
+            "type": "string",
+            "description": "identificador unico de usuário"
+          }
+        }
       }
     },
     "requestBodies": {
@@ -3206,6 +3378,15 @@
           "application/json": {
             "schema": {
               "$ref": "#/components/schemas/UserPost"
+            }
+          }
+        }
+      },
+      "UsersClass": {
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/UsersClass"
             }
           }
         }

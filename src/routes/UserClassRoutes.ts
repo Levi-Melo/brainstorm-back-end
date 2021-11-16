@@ -5,7 +5,7 @@ const router = Router();
 
 router.post("/", controllers.createController);
 
-router.get("/:id", controllers.getByIdController);
+router.get("/", controllers.filterController);
 
 router.patch("/", controllers.updateController);
 

@@ -1,13 +1,13 @@
 import { CreateController } from "./create/CreateController";
-import { GetByIdController } from "./getById/GetByIdController";
+import { FilterController } from "./filter/FilterController";
 import { UpdateController } from "./update/UpdateController";
 
-const getByIdController = new GetByIdController().handle;
+const filterController = new FilterController().handle;
 const createController = new CreateController().handle;
 const updateController = new UpdateController().handle;
 
 export const controllers = {
-  getByIdController,
+  filterController,
   createController,
   updateController,
 };
