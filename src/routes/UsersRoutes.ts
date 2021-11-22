@@ -15,4 +15,6 @@ router.patch("/", controllers.updateController);
 
 router.delete("/:id", controllers.deleteController);
 
+router.post("/signIn", controllers.signInController);
+
 export { router as UsersRoutes };
