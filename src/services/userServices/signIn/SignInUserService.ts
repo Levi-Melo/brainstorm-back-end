@@ -11,7 +11,7 @@ class SignInUserService implements ISignInUserService {
     const userRepository = getCustomRepository(UserRepository);
 
     const user = await userRepository.findOne({
-      where: { email },
+      where: { email, password },
       join: {
         alias: "user",
       },
