@@ -8,7 +8,6 @@ class SignInUserController implements ISignInUserController {
     const { email, password } = req.body;
 
     const signInUserService = new SignInUserService();
-
     const token = await signInUserService.execute({ email, password });
 
     return res.status(200).json({

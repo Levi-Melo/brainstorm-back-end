@@ -12,20 +12,20 @@ class SignInUserService implements ISignInUserService {
 
     const user = await userRepository.findOne({
       where: { email, password },
-      join: {
-        alias: "user",
-      },
     });
     if (!user) throw new Fail(404, "Incorrect email or password");
+    if (!user.active) {
+      throw new Fail(401, "User is not active contact a administrator");
+    }
 
     const token = sign(
       {
-        userId: user.id,
         email,
       },
       process.env.SECRET,
       {
         expiresIn: `1 d`,
+        subject: user.id,
       }
     );
 

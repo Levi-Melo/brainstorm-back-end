@@ -3,6 +3,8 @@ import { controllers } from "../controllers/userController";
 
 const router = Router();
 
+router.post("/signIn", controllers.signInController);
+
 router.post("/", controllers.createController);
 
 router.get("/:id", controllers.getByIdController);
@@ -14,7 +16,5 @@ router.post("/:id", controllers.activeController);
 router.patch("/", controllers.updateController);
 
 router.delete("/:id", controllers.deleteController);
-
-router.post("/signIn", controllers.signInController);
 
 export { router as UsersRoutes };
