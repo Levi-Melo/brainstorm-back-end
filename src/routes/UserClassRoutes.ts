@@ -1,7 +1,10 @@
 import { Router } from "express";
 import { controllers } from "../controllers/userClassController";
+import { ensureAuthenticated } from "../middleware/ensureAuthenticated";
 
 const router = Router();
+
+router.use(ensureAuthenticated);
 
 router.post("/", controllers.createController);
 

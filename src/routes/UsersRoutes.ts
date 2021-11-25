@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { controllers } from "../controllers/userController";
+import { ensureAuthenticated } from "../middleware/ensureAuthenticated";
 
 const router = Router();
 
@@ -7,11 +8,13 @@ router.post("/signIn", controllers.signInController);
 
 router.post("/", controllers.createController);
 
+router.use(ensureAuthenticated);
+
 router.get("/:id", controllers.getByIdController);
 
-router.get("/", controllers.filterController);
-
 router.post("/:id", controllers.activeController);
+
+router.get("/", controllers.filterController);
 
 router.patch("/", controllers.updateController);
 

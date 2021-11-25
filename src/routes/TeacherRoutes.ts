@@ -1,11 +1,16 @@
 import { Router } from "express";
 import { controllers } from "../controllers/teacherController";
+import { ensureAuthenticated } from "../middleware/ensureAuthenticated";
 
 const router = Router();
 
-router.post("/", controllers.createController);
+router.get("/", controllers.filterController);
 
 router.get("/:id", controllers.getByIdController);
+
+router.use(ensureAuthenticated);
+
+router.post("/", controllers.createController);
 
 router.post("/:id", controllers.activeController);
 
