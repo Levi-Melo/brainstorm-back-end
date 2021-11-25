@@ -9,6 +9,7 @@ import {
 } from "typeorm";
 
 import { v4 as uuid } from "uuid";
+import { Class } from "./Class";
 import { User } from "./User";
 
 @Entity("questions")
@@ -31,6 +32,10 @@ export class Question {
   @JoinColumn({ name: "user_id" })
   @ManyToOne((type) => User, (User) => User.id)
   public user: User;
+
+  @JoinColumn({ name: "class" })
+  @ManyToOne((type) => Class, (Class) => Class.id)
+  public class: Class;
 
   constructor(
     Question: Omit<
