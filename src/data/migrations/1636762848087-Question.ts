@@ -40,7 +40,7 @@ export class Question1636762848087 implements MigrationInterface {
         ],
         foreignKeys: [
           {
-            name: "FK_user_answers",
+            name: "FK_user_question",
             referencedTableName: "users",
             referencedColumnNames: ["id"],
             columnNames: ["user"],
@@ -49,7 +49,7 @@ export class Question1636762848087 implements MigrationInterface {
             name: "FK_class_answers",
             referencedTableName: "classes",
             referencedColumnNames: ["id"],
-            columnNames: ["class_id"],
+            columnNames: ["class"],
           },
         ],
       })
