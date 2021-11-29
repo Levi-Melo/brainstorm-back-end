@@ -24,12 +24,6 @@ class FilterUserService {
 
     const users = await userRepository.find({
       where: params,
-      join: {
-        alias: "user",
-        leftJoinAndSelect: {
-          role: "user.role",
-        },
-      },
     });
     return classToPlain(users);
   }

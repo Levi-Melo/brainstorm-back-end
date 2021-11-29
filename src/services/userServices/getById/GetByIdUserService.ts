@@ -7,12 +7,6 @@ class GetByIdUserService implements IGetByIdUserService {
     const userRepository = getCustomRepository(UserRepository);
     const user = await userRepository.findOne({
       where: [{ id: id }],
-      join: {
-        alias: "user",
-        leftJoinAndSelect: {
-          role: "user.role",
-        },
-      },
     });
 
     return user;
