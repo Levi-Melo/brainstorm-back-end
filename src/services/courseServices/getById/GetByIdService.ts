@@ -7,6 +7,12 @@ export class GetByIdService implements IGetByIdService {
     const courseRepository = getCustomRepository(CourseRepository);
     const course = await courseRepository.findOne({
       where: [{ id: id }],
+      join: {
+        alias: "course",
+        innerJoinAndSelect: {
+          category: "course.category",
+        },
+      },
     });
 
     return course;
