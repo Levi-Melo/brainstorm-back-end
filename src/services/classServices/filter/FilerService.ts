@@ -14,7 +14,7 @@ export class FilterService implements IFilterService {
       join: {
         alias: "class",
         innerJoinAndSelect: {
-          user: "class.user",
+          course: "class.course",
         },
       },
     });
