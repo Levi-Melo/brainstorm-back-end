@@ -7,15 +7,7 @@ import { Fail } from "../../../entities/Error";
 
 class GetByIdUserController {
   async handle(req: Request, res: Response) {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(400).json({
-        status: false,
-        errors: errors.array(),
-      });
-    }
-
-    const { id } = req.params;
+    const id = req.body.userId;
 
     const getUserService = new GetByIdUserService();
     const response = await getUserService.execute(id);

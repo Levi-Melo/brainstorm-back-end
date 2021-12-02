@@ -12,7 +12,7 @@ router.use(ensureAuthenticated);
 
 router.post("/", controllers.createController);
 
-router.post("/:id", controllers.activeController);
+router.post("/id", controllers.activeController);
 
 router.patch("/", controllers.updateController);
 
