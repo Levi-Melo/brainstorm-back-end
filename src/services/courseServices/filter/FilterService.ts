@@ -18,6 +18,12 @@ export class FilterService implements IFilterService {
 
     const course = await courseRepository.find({
       where: data,
+      join: {
+        alias: "course",
+        innerJoinAndSelect: {
+          category: "course.category",
+        },
+      },
     });
     return course;
   }
